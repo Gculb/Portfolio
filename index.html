@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grant Culbertson — Developer &amp; Biochemist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+ 
+:root {
+  --bg:        #080c10;
+  --bg2:       #0d1318;
+  --bg3:       #111820;
+  --panel:     #0f1822;
+  --border:    rgba(0,220,180,0.12);
+  --border2:   rgba(0,220,180,0.22);
+  --glow:      #00dcb4;
+  --glow2:     #00aaff;
+  --glow3:     #a0ff60;
+  --amber:     #ffb347;
+  --text:      #c8dde8;
+  --text2:     #7a9aaa;
+  --text3:     #3a5a6a;
+  --white:     #e8f4fa;
+  --display:   'Rajdhani', sans-serif;
+  --mono:      'JetBrains Mono', monospace;
+  --serif:     'Crimson Pro', serif;
+}
+ 
+html { scroll-behavior: smooth; }
+ 
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+ 
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.04) 2px,
+    rgba(0,0,0,0.04) 4px
+  );
+  pointer-events:none;
+  z-index:9999;
+}
+ 
+a { color:inherit; text-decoration:none; }
+ 
+#mol-canvas {
+  position:fixed;
+  inset:0;
+  z-index:0;
+  opacity:0.35;
+}
+ 
+.page-wrap {
+  position:relative;
+  z-index:1;
+}
+ 
+nav {
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.9rem 3rem;
+  background:rgba(8,12,16,0.85);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+ 
+.nav-logo {
+  font-family:var(--display);
+  font-size:1.1rem;
+  font-weight:700;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--white);
+}
+.nav-logo span { color:var(--glow); }
+ 
+.nav-links {
+  display:flex;
+  gap:2.5rem;
+  list-style:none;
+  font-size:0.7rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+}
+.nav-links a { color:var(--text2); transition:color 0.2s; }
+.nav-links a:hover { color:var(--glow); }
+ 
+#hero {
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:0 3rem;
+  padding-top:80px;
+  position:relative;
+}
+ 
+.hero-label {
+  font-size:0.65rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--glow);
+  margin-bottom:1.5rem;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  animation: fadeIn 1s ease both;
+}
+.hero-label::before {
+  content:'';
+  display:block;
+  width:2.5rem;
+  height:1px;
+  background:var(--glow);
+  box-shadow:0 0 6px var(--glow);
+}
+ 
+h1 {
+  font-family:var(--display);
+  font-size:clamp(3.5rem, 8vw, 7rem);
+  font-weight:700;
+  line-height:0.95;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:var(--white);
+  margin-bottom:0.25rem;
+  animation: fadeIn 1s 0.1s ease both;
+}
+h1 .glow-name {
+  color:var(--glow);
+  display:block;
+  animation: glowPulse 3s ease infinite;
+}
+ 
+.hero-formula {
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:clamp(1rem, 2vw, 1.35rem);
+  color:var(--text2);
+  margin-bottom:2.5rem;
+  letter-spacing:0.02em;
+  animation: fadeIn 1s 0.2s ease both;
+}
+ 
+.hero-desc {
+  max-width:55ch;
+  color:var(--text2);
+  font-size:0.88rem;
+  line-height:1.9;
+  margin-bottom:3rem;
+  animation: fadeIn 1s 0.3s ease both;
+}
+ 
+.hero-ctas {
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+  animation: fadeIn 1s 0.4s ease both;
+}
+ 
+.btn {
+  font-family:var(--mono);
+  font-size:0.65rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  padding:0.8rem 2rem;
+  cursor:pointer;
+  transition:all 0.2s;
+  display:inline-flex;
+  align-items:center;
+  gap:0.6rem;
+  border:none;
+}
+.btn-glow {
+  background:transparent;
+  border:1px solid var(--glow);
+  color:var(--glow);
+  box-shadow:0 0 12px rgba(0,220,180,0.15), inset 0 0 12px rgba(0,220,180,0.05);
+}
+.btn-glow:hover {
+  background:rgba(0,220,180,0.1);
+  box-shadow:0 0 24px rgba(0,220,180,0.3), inset 0 0 20px rgba(0,220,180,0.08);
+  transform:translateY(-1px);
+}
+.btn-ghost {
+  background:transparent;
+  border:1px solid var(--border2);
+  color:var(--text2);
+}
+.btn-ghost:hover {
+  border-color:var(--glow2);
+  color:var(--glow2);
+  transform:translateY(-1px);
+}
+ 
+.hero-stats {
+  position:absolute;
+  right:3rem;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  border:1px solid var(--border);
+  animation: fadeIn 1s 0.5s ease both;
+}
+ 
+.hstat {
+  padding:1.5rem 2rem;
+  border-bottom:1px solid var(--border);
+  text-align:center;
+  background:rgba(13,19,24,0.75);
+  backdrop-filter:blur(8px);
+}
+.hstat:last-child { border-bottom:none; }
+ 
+.hstat-num {
+  font-family:var(--display);
+  font-size:2.2rem;
+  font-weight:700;
+  color:var(--glow);
+  text-shadow:0 0 20px rgba(0,220,180,0.5);
+  line-height:1;
+  margin-bottom:0.3rem;
+}
+.hstat-label {
+  font-size:0.6rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--text3);
+}
+ 
+.scroll-hint {
+  position:absolute;
+  bottom:2rem;
+  left:3rem;
+  font-size:0.6rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--text3);
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+  animation:fadeIn 1.5s 1s ease both;
+}
+.scroll-hint::after {
+  content:'';
+  display:block;
+  width:1.5rem;
+  height:1px;
+  background:var(--text3);
+  animation:pulse 2s ease infinite;
+}
+ 
+.section-wrap {
+  max-width:1180px;
+  margin:0 auto;
+  padding:6rem 3rem;
+  border-top:1px solid var(--border);
+}
+ 
+.sec-eyebrow {
+  font-size:0.6rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--glow);
+  margin-bottom:0.75rem;
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+}
+.sec-eyebrow::before {
+  content:'';
+  display:block;
+  width:1.5rem;
+  height:1px;
+  background:var(--glow);
+  box-shadow:0 0 4px var(--glow);
+}
+ 
+h2 {
+  font-family:var(--display);
+  font-size:clamp(2rem, 4vw, 3rem);
+  font-weight:700;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--white);
+  line-height:1.05;
+  margin-bottom:3rem;
+}
+h2 em { font-style:normal; color:var(--glow); }
+ 
+.about-grid {
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:5rem;
+  align-items:start;
+}
+ 
+.about-text p {
+  color:var(--text2);
+  font-size:0.88rem;
+  line-height:1.95;
+  margin-bottom:1.25rem;
+}
+.about-text p strong { color:var(--glow); font-weight:500; }
+ 
+.skill-group { margin-bottom:2rem; }
+.skill-group:last-child { margin-bottom:0; }
+ 
+.skill-group-label {
+  font-size:0.58rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--glow);
+  margin-bottom:0.75rem;
+  padding-bottom:0.5rem;
+  border-bottom:1px solid var(--border);
+}
+ 
+.pill-row { display:flex; flex-wrap:wrap; gap:0.45rem; }
+ 
+.pill {
+  font-size:0.62rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:0.3rem 0.8rem;
+  border:1px solid var(--border2);
+  color:var(--text2);
+  background:rgba(0,220,180,0.03);
+  transition:all 0.2s;
+  cursor:default;
+}
+.pill:hover { border-color:var(--glow); color:var(--glow); background:rgba(0,220,180,0.07); }
+.pill.hi { border-color:rgba(0,220,180,0.35); color:var(--glow); background:rgba(0,220,180,0.06); }
+.pill.blue { border-color:rgba(0,170,255,0.35); color:var(--glow2); background:rgba(0,170,255,0.05); }
+.pill.green { border-color:rgba(160,255,96,0.3); color:var(--glow3); background:rgba(160,255,96,0.04); }
+ 
+.projects-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--border);
+}
+ 
+.proj-card {
+  background:var(--bg2);
+  padding:2rem 1.75rem;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  transition:background 0.25s;
+  position:relative;
+  overflow:hidden;
+}
+.proj-card::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  border:1px solid transparent;
+  transition:border-color 0.3s;
+  pointer-events:none;
+}
+.proj-card:hover { background:var(--bg3); }
+.proj-card:hover::after { border-color:rgba(0,220,180,0.25); }
+ 
+.proj-card.wide {
+  grid-column:span 2;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:2.5rem;
+  align-items:start;
+}
+ 
+.proj-num {
+  font-size:0.58rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--text3);
+}
+ 
+.proj-title {
+  font-family:var(--display);
+  font-size:1.5rem;
+  font-weight:700;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--white);
+  line-height:1.1;
+}
+ 
+.proj-desc {
+  font-size:0.82rem;
+  color:var(--text2);
+  line-height:1.85;
+  flex:1;
+}
+ 
+.proj-tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
+ 
+.tag {
+  font-size:0.58rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:0.22rem 0.65rem;
+  background:rgba(0,220,180,0.06);
+  border:1px solid rgba(0,220,180,0.2);
+  color:var(--glow);
+}
+.tag.b { background:rgba(0,170,255,0.06); border-color:rgba(0,170,255,0.2); color:var(--glow2); }
+.tag.g { background:rgba(160,255,96,0.05); border-color:rgba(160,255,96,0.2); color:var(--glow3); }
+.tag.a { background:rgba(255,179,71,0.06); border-color:rgba(255,179,71,0.2); color:var(--amber); }
+ 
+.proj-links { display:flex; gap:1.25rem; align-items:center; }
+.plink {
+  font-size:0.62rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--glow);
+  display:flex;
+  align-items:center;
+  gap:0.35rem;
+  transition:gap 0.2s, text-shadow 0.2s;
+}
+.plink:hover { gap:0.65rem; text-shadow:0 0 8px rgba(0,220,180,0.6); }
+.plink::after { content:'→'; }
+ 
+.mol-diagram { width:200px; flex-shrink:0; }
+ 
+.ds-strip {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  margin-top:1px;
+}
+ 
+.ds-item { background:var(--bg2); padding:1.75rem 1.5rem; }
+ 
+.ds-glyph {
+  font-family:var(--display);
+  font-size:2.5rem;
+  font-weight:700;
+  color:var(--glow);
+  text-shadow:0 0 20px rgba(0,220,180,0.4);
+  line-height:1;
+  margin-bottom:0.75rem;
+}
+ 
+.ds-title {
+  font-family:var(--display);
+  font-size:0.95rem;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--white);
+  margin-bottom:0.5rem;
+}
+ 
+.ds-body { font-size:0.78rem; color:var(--text2); line-height:1.8; }
+ 
+.edu-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--border);
+}
+ 
+.edu-card {
+  background:var(--bg2);
+  padding:2.5rem 2rem;
+  position:relative;
+}
+.edu-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:2px;
+  background:linear-gradient(90deg, var(--glow), transparent);
+}
+ 
+.edu-year {
+  font-size:0.6rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--glow);
+  margin-bottom:1rem;
+}
+ 
+.edu-degree {
+  font-family:var(--display);
+  font-size:1.4rem;
+  font-weight:700;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--white);
+  line-height:1.2;
+  margin-bottom:0.5rem;
+}
+ 
+.edu-field {
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1rem;
+  color:var(--glow);
+  margin-bottom:0.5rem;
+}
+ 
+.edu-school { font-size:0.78rem; color:var(--text2); }
+ 
+.contact-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5rem;
+  align-items:center;
+}
+ 
+.contact-big {
+  font-family:var(--display);
+  font-size:clamp(2.2rem,5vw,4rem);
+  font-weight:700;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  line-height:1.05;
+  color:var(--white);
+  margin-bottom:1.5rem;
+}
+.contact-big .g { color:var(--glow); text-shadow:0 0 20px rgba(0,220,180,0.35); }
+ 
+.contact-sub { font-size:0.82rem; color:var(--text2); line-height:1.9; max-width:40ch; }
+ 
+.clinks { display:flex; flex-direction:column; gap:1px; background:var(--border); }
+ 
+.clink {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:1.25rem 1.5rem;
+  background:var(--bg2);
+  transition:background 0.2s;
+  cursor:pointer;
+  border:1px solid transparent;
+}
+.clink:hover { background:var(--bg3); border-color:rgba(0,220,180,0.2); }
+ 
+.clink-label { font-size:0.58rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text3); margin-bottom:0.2rem; }
+.clink-val {
+  font-family:var(--display);
+  font-size:1rem;
+  font-weight:600;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:var(--white);
+}
+.clink-arrow { color:var(--glow); font-size:1.1rem; transition:transform 0.2s; }
+.clink:hover .clink-arrow { transform:translateX(5px); }
+ 
+footer {
+  border-top:1px solid var(--border);
+  padding:1.5rem 3rem;
+  max-width:1180px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.foot-logo { font-family:var(--display); font-size:0.8rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--text3); }
+.foot-copy { font-size:0.6rem; letter-spacing:0.12em; color:var(--text3); text-transform:uppercase; }
+ 
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes pulse {
+  0%,100% { opacity:0.3; }
+  50% { opacity:1; }
+}
+@keyframes glowPulse {
+  0%,100% { text-shadow:0 0 30px rgba(0,220,180,0.4),0 0 60px rgba(0,220,180,0.15); }
+  50% { text-shadow:0 0 45px rgba(0,220,180,0.65),0 0 90px rgba(0,220,180,0.28); }
+}
+ 
+.reveal {
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity:1; transform:none; }
+ 
+@media(max-width:900px){
+  nav { padding:0.9rem 1.5rem; }
+  .nav-links { gap:1.5rem; }
+  #hero { padding:5rem 1.5rem 3rem; }
+  .hero-stats { position:static; transform:none; flex-direction:row; flex-wrap:wrap; margin-top:3rem; }
+  .hstat { flex:1; min-width:120px; }
+  .section-wrap { padding:4rem 1.5rem; }
+  .about-grid,.contact-grid,.edu-grid { grid-template-columns:1fr; gap:2.5rem; }
+  .projects-grid { grid-template-columns:1fr; }
+  .proj-card.wide { grid-column:1; grid-template-columns:1fr; }
+  .mol-diagram { display:none; }
+  .ds-strip { grid-template-columns:1fr; }
+  footer { flex-direction:column; gap:0.5rem; }
+}
+</style>
+</head>
+<body>
+ 
+<canvas id="mol-canvas"></canvas>
+ 
+<div class="page-wrap">
+ 
+<nav>
+  <div class="nav-logo">G<span>.</span>Culbertson</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+ 
+<section id="hero">
+  <div class="hero-label">Biochemist &amp; Software Engineer</div>
+  <h1>
+    Grant
+    <span class="glow-name">Culbertson</span>
+  </h1>
+  <p class="hero-formula">
+    C<sub>n</sub>H<sub>m</sub>O<sub>p</sub> &nbsp;→&nbsp; Full-Stack Systems &nbsp;→&nbsp; ML Pipelines
+  </p>
+  <p class="hero-desc">
+    I build software at the boundary of computer science and biochemistry —
+    interactive molecular platforms, machine learning pipelines for biological data,
+    and AI-powered simulation systems. M.Eng CS at Virginia Tech.
+  </p>
+  <div class="hero-ctas">
+    <a href="#projects" class="btn btn-glow">View Projects →</a>
+    <a href="https://github.com/gculb" target="_blank" class="btn btn-ghost">GitHub Profile</a>
+  </div>
+ 
+  <div class="hero-stats">
+    <div class="hstat">
+      <div class="hstat-num">7+</div>
+      <div class="hstat-label">Repositories</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">35</div>
+      <div class="hstat-label">BiochemReact Topics</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">6</div>
+      <div class="hstat-label">ML Models</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">2×</div>
+      <div class="hstat-label">Degree Fields</div>
+    </div>
+  </div>
+ 
+  <div class="scroll-hint">Scroll to explore</div>
+</section>
+ 
+<div class="section-wrap" id="about">
+  <div class="sec-eyebrow reveal">01 / About</div>
+  <h2 class="reveal">Who I <em>Am</em></h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm a <strong>software engineer with a biochemistry foundation</strong> — a combination that shapes how I approach every system I build. My undergraduate work in biochemistry gave me a deep appreciation for molecular complexity; my graduate work in CS gave me the tools to model it computationally.</p>
+      <p>My primary project is <strong>Alexandria Virtual Patient</strong>, an AI-powered EMS simulation platform with a TypeScript backend, RAG pipeline over ChromaDB, multilingual embeddings, real-time Socket.IO architecture, and an LLM-driven progress evaluator agent.</p>
+      <p>On the data science side I apply <strong>supervised ML to bioinformatics problems</strong> — protein sequence classification, regional health analysis, and Virginia public health datasets — using Python's scientific stack.</p>
+      <p><strong>BiochemReact</strong> is my flagship open-source project: an interactive biochemistry learning platform with 3D molecular visualization, an enzyme kinetics simulator, AlphaFold integration, and 35 topic categories.</p>
+    </div>
+    <div class="about-stack reveal">
+      <div class="skill-group">
+        <div class="skill-group-label">Languages</div>
+        <div class="pill-row">
+          <span class="pill hi">TypeScript</span>
+          <span class="pill hi">JavaScript</span>
+          <span class="pill">Python</span>
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">C++</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Frontend</div>
+        <div class="pill-row">
+          <span class="pill">React 19</span>
+          <span class="pill">Three.js</span>
+          <span class="pill">Chart.js</span>
+          <span class="pill">KaTeX</span>
+          <span class="pill">Socket.IO</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Backend &amp; Infra</div>
+        <div class="pill-row">
+          <span class="pill blue">Node.js</span>
+          <span class="pill blue">ChromaDB</span>
+          <span class="pill blue">Docker</span>
+          <span class="pill blue">Vitest</span>
+          <span class="pill blue">Deepgram STT</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Data Science</div>
+        <div class="pill-row">
+          <span class="pill green">scikit-learn</span>
+          <span class="pill green">Pandas</span>
+          <span class="pill green">NumPy</span>
+          <span class="pill green">Jupyter</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Specialisations</div>
+        <div class="pill-row">
+          <span class="pill hi">RAG Pipelines</span>
+          <span class="pill hi">LLM Integration</span>
+          <span class="pill green">Bioinformatics</span>
+          <span class="pill">Mol. Visualization</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<div class="section-wrap" id="projects">
+  <div class="sec-eyebrow reveal">02 / Projects</div>
+  <h2 class="reveal">Selected <em>Work</em></h2>
+ 
+  <div class="projects-grid reveal">
+ 
+    <div class="proj-card wide">
+      <div>
+        <div class="proj-num">Featured / 01</div>
+        <div class="proj-title">BiochemReact</div>
+        <p class="proj-desc">A full-featured interactive biochemistry learning platform built in React 19. Includes a Three.js 3D molecular viewer with AlphaFold EBI API integration, a Michaelis-Menten kinetics lab with real-time curve fitting, 35 topic categories with 100+ expandable cards, KaTeX equation rendering, and a practice problem bank. Deployed live on GitHub Pages.</p>
+        <div class="proj-tags">
+          <span class="tag">React 19</span>
+          <span class="tag">Three.js</span>
+          <span class="tag">Chart.js</span>
+          <span class="tag">KaTeX</span>
+          <span class="tag g">AlphaFold API</span>
+          <span class="tag b">GitHub Pages</span>
+          <span class="tag a">Live Demo</span>
+        </div>
+        <div class="proj-links" style="margin-top:0.5rem">
+          <a href="https://gculb.github.io/BiochemReact" target="_blank" class="plink">Live Demo</a>
+          <a href="https://github.com/Gculb/BiochemReact" target="_blank" class="plink">Source</a>
+        </div>
+      </div>
+      <div class="mol-diagram">
+        <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;opacity:0.85;">
+          <line x1="100" y1="50" x2="100" y2="100" stroke="#00dcb4" stroke-width="1.5" opacity="0.5"/>
+          <line x1="100" y1="100" x2="60" y2="130" stroke="#00dcb4" stroke-width="1.5" opacity="0.5"/>
+          <line x1="100" y1="100" x2="140" y2="130" stroke="#00dcb4" stroke-width="1.5" opacity="0.5"/>
+          <line x1="60" y1="130" x2="60" y2="175" stroke="#00aaff" stroke-width="1.2" opacity="0.4"/>
+          <line x1="140" y1="130" x2="140" y2="175" stroke="#00aaff" stroke-width="1.2" opacity="0.4"/>
+          <line x1="60" y1="175" x2="100" y2="200" stroke="#a0ff60" stroke-width="1.2" opacity="0.4"/>
+          <line x1="140" y1="175" x2="100" y2="200" stroke="#a0ff60" stroke-width="1.2" opacity="0.4"/>
+          <line x1="98" y1="50" x2="98" y2="100" stroke="#00dcb4" stroke-width="1" opacity="0.25"/>
+          <circle cx="100" cy="50" r="13" fill="#080c10" stroke="#00dcb4" stroke-width="1.5"/>
+          <text x="100" y="55" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#00dcb4" font-weight="500">O</text>
+          <circle cx="100" cy="100" r="15" fill="#080c10" stroke="#00dcb4" stroke-width="2"/>
+          <text x="100" y="105" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#00dcb4" font-weight="500">C</text>
+          <circle cx="60" cy="130" r="12" fill="#080c10" stroke="#00aaff" stroke-width="1.5"/>
+          <text x="60" y="135" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#00aaff">N</text>
+          <circle cx="140" cy="130" r="12" fill="#080c10" stroke="#00aaff" stroke-width="1.5"/>
+          <text x="140" y="135" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#00aaff">N</text>
+          <circle cx="60" cy="175" r="11" fill="#080c10" stroke="#a0ff60" stroke-width="1.5"/>
+          <text x="60" y="180" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#a0ff60">H</text>
+          <circle cx="140" cy="175" r="11" fill="#080c10" stroke="#a0ff60" stroke-width="1.5"/>
+          <text x="140" y="180" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#a0ff60">H</text>
+          <circle cx="100" cy="200" r="11" fill="#080c10" stroke="#ffb347" stroke-width="1.5"/>
+          <text x="100" y="205" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#ffb347">S</text>
+          <circle cx="100" cy="100" r="22" fill="none" stroke="#00dcb4" stroke-width="0.5" opacity="0.2"/>
+          <circle cx="100" cy="100" r="36" fill="none" stroke="#00dcb4" stroke-width="0.3" opacity="0.1"/>
+        </svg>
+      </div>
+    </div>
+ 
+    <div class="proj-card">
+      <div class="proj-num">02</div>
+      <div class="proj-title">Protein Classification</div>
+      <p class="proj-desc">Supervised ML comparison across six algorithms on a simulated bioinformatics protein dataset. Logistic Regression, Random Forest, Gradient Boosting, SVM (RBF), KNN, and MLP evaluated with consistent scikit-learn pipelines including scaling and label encoding.</p>
+      <div class="proj-tags">
+        <span class="tag">Python</span>
+        <span class="tag g">scikit-learn</span>
+        <span class="tag g">Bioinformatics</span>
+        <span class="tag b">Jupyter</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/Gculb/Protein-Sequence-Project" target="_blank" class="plink">View Repo</a>
+      </div>
+    </div>
+ 
+    <div class="proj-card">
+      <div class="proj-num">03</div>
+      <div class="proj-title">Regional Health Analysis</div>
+      <p class="proj-desc">Epidemiological analysis of regional public health metrics using Python. Applies statistical methods and data wrangling to surface population-level health trends from structured datasets.</p>
+      <div class="proj-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Pandas</span>
+        <span class="tag g">Public Health</span>
+        <span class="tag b">Jupyter</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/Gculb/Regional-Health-Analysis" target="_blank" class="plink">View Repo</a>
+      </div>
+    </div>
+ 
+    <div class="proj-card">
+      <div class="proj-num">04</div>
+      <div class="proj-title">VDH Analysis</div>
+      <p class="proj-desc">Analysis of Virginia Department of Health data. Data wrangling, visualisation, and statistical methods applied to real Commonwealth of Virginia public health datasets.</p>
+      <div class="proj-tags">
+        <span class="tag">Python</span>
+        <span class="tag b">Jupyter</span>
+        <span class="tag g">Health Data</span>
+        <span class="tag a">Virginia</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/Gculb/VDH-Analysis" target="_blank" class="plink">View Repo</a>
+      </div>
+    </div>
+ 
+    <div class="proj-card">
+      <div class="proj-num">05</div>
+      <div class="proj-title">Molecular Builder</div>
+      <p class="proj-desc">Browser-based tool for constructing and visualising molecular structures interactively in JavaScript. Demonstrates programmatic 3D molecular modelling and computational chemistry concepts.</p>
+      <div class="proj-tags">
+        <span class="tag">JavaScript</span>
+        <span class="tag g">Chemistry</span>
+        <span class="tag">3D Viz</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/Gculb/molecular_builder" target="_blank" class="plink">View Repo</a>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <div class="ds-strip reveal">
+    <div class="ds-item">
+      <div class="ds-glyph">ML</div>
+      <div class="ds-title">Bioinformatics ML</div>
+      <p class="ds-body">Protein classification, epidemiological analysis, and genomic data pipelines using Python's scientific stack.</p>
+    </div>
+    <div class="ds-item">
+      <div class="ds-glyph" style="color:var(--glow2);text-shadow:0 0 20px rgba(0,170,255,0.4);">3D</div>
+      <div class="ds-title">Molecular Visualization</div>
+      <p class="ds-body">Three.js molecular rendering, AlphaFold structure integration, and interactive biochemistry education tools.</p>
+    </div>
+    <div class="ds-item">
+      <div class="ds-glyph" style="color:var(--glow3);text-shadow:0 0 20px rgba(160,255,96,0.4);">AI</div>
+      <div class="ds-title">AI Systems</div>
+      <p class="ds-body">RAG pipelines, vector embeddings, LLM orchestration, and real-time socket architectures for simulation platforms.</p>
+    </div>
+  </div>
+</div>
+ 
+<div class="section-wrap" id="education">
+  <div class="sec-eyebrow reveal">03 / Education</div>
+  <h2 class="reveal"><em>Academic</em> Background</h2>
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="edu-year">Current</div>
+      <div class="edu-degree">M.Eng</div>
+      <div class="edu-field">Computer Science and Applications</div>
+      <div class="edu-school">Virginia Tech · Blacksburg, VA</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2016 – 2021</div>
+      <div class="edu-degree">B.S.</div>
+      <div class="edu-field">Biochemistry</div>
+      <div class="edu-school">Undergraduate Institution</div>
+    </div>
+  </div>
+</div>
+ 
+<div class="section-wrap" id="contact">
+  <div class="sec-eyebrow reveal">04 / Contact</div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="contact-big">
+        Let's build<br>something<br><span class="g">remarkable.</span>
+      </div>
+      <p class="contact-sub">Open to collaboration on projects at the intersection of software and the life sciences, or any ambitious engineering challenge.</p>
+    </div>
+    <div class="clinks reveal">
+      <a href="https://github.com/gculb" target="_blank" class="clink">
+        <div>
+          <div class="clink-label">GitHub</div>
+          <div class="clink-val">github.com/gculb</div>
+        </div>
+        <div class="clink-arrow">→</div>
+      </a>
+      <a href="https://gculb.github.io/BiochemReact" target="_blank" class="clink">
+        <div>
+          <div class="clink-label">Live Project</div>
+          <div class="clink-val">BiochemReact Demo</div>
+        </div>
+        <div class="clink-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</div>
+ 
+<footer>
+  <div class="foot-logo">Grant Culbertson</div>
+  <div class="foot-copy">© 2026 — Built with intention</div>
+</footer>
+ 
+</div>
+ 
+<script>
+const canvas = document.getElementById('mol-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, nodes;
+const COLORS = ['#00dcb4','#00aaff','#a0ff60','#ffb347'];
+const LABELS = ['C','N','O','H','S','P','Fe','Mg'];
+ 
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+ 
+function initNodes() {
+  nodes = Array.from({length:60}, () => ({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    vx: (Math.random() - 0.5) * 0.38,
+    vy: (Math.random() - 0.5) * 0.38,
+    r: Math.random() * 3 + 1.5,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    label: LABELS[Math.floor(Math.random() * LABELS.length)],
+    showLabel: Math.random() > 0.6
+  }));
+}
+ 
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const a = nodes[i], b = nodes[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 155) {
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = `rgba(0,220,180,${(1 - dist/155) * 0.22})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+  for (const n of nodes) {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = n.color;
+    ctx.fill();
+    if (n.showLabel && n.r > 2.5) {
+      ctx.font = `9px 'JetBrains Mono', monospace`;
+      ctx.fillStyle = n.color;
+      ctx.fillText(n.label, n.x + n.r + 3, n.y + 4);
+    }
+    n.x += n.vx; n.y += n.vy;
+    if (n.x < 0 || n.x > W) n.vx *= -1;
+    if (n.y < 0 || n.y > H) n.vy *= -1;
+  }
+  requestAnimationFrame(draw);
+}
+ 
+window.addEventListener('resize', resize);
+resize(); initNodes(); draw();
+ 
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 90);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
+  
