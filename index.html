@@ -69,18 +69,9 @@
           or human decision-making. I like systems that need both careful implementation and domain intuition.
         </p>
         <div class="proof-list reveal">
-          <div>
-            <span>Current focus</span>
-            AI simulations, bioinformatics ML, technical web applications, and secondary DSP tooling.
-          </div>
-          <div>
-            <span>What I bring</span>
-            TypeScript/React fluency, Python analysis, data pipelines, biochemistry context, and embedded experimentation.
-          </div>
-          <div>
-            <span>Recruiter fit</span>
-            Software engineering, full-stack, ML/data, scientific computing, and embedded-adjacent roles.
-          </div>
+          <div><span>Current focus</span>AI simulations, bioinformatics ML, technical web applications, and secondary DSP tooling.</div>
+          <div><span>What I bring</span>TypeScript/React fluency, Python analysis, data pipelines, biochemistry context, and embedded experimentation.</div>
+          <div><span>Recruiter fit</span>Software engineering, full-stack, ML/data, scientific computing, and embedded-adjacent roles.</div>
         </div>
       </div>
     </section>
@@ -92,6 +83,131 @@
       </div>
 
       <div class="project-grid">
+
+        <!-- Alexandria – full width with RAG metrics -->
+        <article class="project-card featured reveal" style="grid-template-columns: minmax(0,1fr); display: block;">
+          <p class="project-kicker">AI simulation platform</p>
+          <h3>Alexandria Virtual Patient</h3>
+          <p>
+            AI-powered EMS simulation platform with a TypeScript backend, multilingual embeddings, ChromaDB retrieval,
+            real-time Socket.IO architecture, and an LLM-driven progress evaluator. Built for scenario-based
+            medical decision practice with measurable retrieval quality underpinning every simulation run.
+          </p>
+          <ul class="impact-list">
+            <li>Designed for scenario-based medical decision practice with real-time state changes.</li>
+            <li>Connects RAG retrieval, evaluator agents, and interactive simulation flow.</li>
+            <li>RAG pipeline evaluated across 104 queries — MRR of 0.85 and Recall of 0.70 at K=7.</li>
+          </ul>
+          <div class="tag-row">
+            <span>TypeScript</span>
+            <span>RAG</span>
+            <span>ChromaDB</span>
+            <span>Socket.IO</span>
+            <span>LLM agents</span>
+            <span>multilingual-e5-large</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/gculb" target="_blank" rel="noreferrer">GitHub profile</a>
+          </div>
+
+          <!-- RAG Metrics Block -->
+          <div class="rag-section">
+            <div class="rag-header">
+              <p class="rag-title">RAG evaluation results</p>
+              <p class="rag-subtitle">104 queries &nbsp;·&nbsp; multilingual-e5-large embeddings &nbsp;·&nbsp; ChromaDB</p>
+            </div>
+
+            <div class="rag-layout">
+              <div class="rag-table-wrap">
+                <table class="rag-table" aria-label="RAG retrieval metrics across K values">
+                  <thead>
+                    <tr>
+                      <th>Metric</th>
+                      <th>Target</th>
+                      <th>K=1</th>
+                      <th>K=3</th>
+                      <th class="optimal-col">K=5 ★</th>
+                      <th>K=7</th>
+                      <th>K=10</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Top-K Accuracy</td>
+                      <td>≥ 0.60</td>
+                      <td class="fail">0.44</td>
+                      <td class="fail">0.56</td>
+                      <td class="fail optimal-col">0.55</td>
+                      <td class="fail">0.58</td>
+                      <td class="pass">0.61</td>
+                    </tr>
+                    <tr>
+                      <td>MRR</td>
+                      <td>≥ 0.80</td>
+                      <td class="fail">0.44</td>
+                      <td class="fail">0.74</td>
+                      <td class="pass optimal-col">0.81</td>
+                      <td class="pass">0.85</td>
+                      <td class="pass">0.84</td>
+                    </tr>
+                    <tr>
+                      <td>Precision@K</td>
+                      <td>≥ 0.25</td>
+                      <td class="pass">0.44</td>
+                      <td class="pass">0.33</td>
+                      <td class="pass optimal-col">0.27</td>
+                      <td class="fail">0.22</td>
+                      <td class="fail">0.18</td>
+                    </tr>
+                    <tr>
+                      <td>Recall@K</td>
+                      <td>≥ 0.60</td>
+                      <td class="fail">0.21</td>
+                      <td class="fail">0.46</td>
+                      <td class="pass optimal-col">0.61</td>
+                      <td class="pass">0.70</td>
+                      <td class="pass">0.79</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="rag-legend">
+                  <span><span class="dot" style="background: #b7f46e;"></span>Meets target</span>
+                  <span><span class="dot" style="background: #ff6b6b;"></span>Below target</span>
+                  <span><span class="dot" style="background: rgba(56,216,191,0.5); border: 1px solid var(--cyan);"></span>K=5 selected (optimal tradeoff)</span>
+                </div>
+              </div>
+
+              <div class="rag-insights">
+                <div class="insight-card pass-card">
+                  <p class="insight-metric">MRR 0.81 at K=5 — first-rank quality matters most</p>
+                  <p class="insight-body">
+                    In a medical simulation, the <strong>first chunk the LLM reads</strong> heavily shapes the patient response. An MRR of 0.81 means the correct EMS protocol or symptom context lands in the top 1–2 results for most queries — keeping the AI patient's behavior grounded in real clinical data.
+                  </p>
+                </div>
+                <div class="insight-card pass-card">
+                  <p class="insight-metric">Recall 0.61 at K=5 — coverage across multi-step protocols</p>
+                  <p class="insight-body">
+                    EMS procedures involve <strong>multi-step decision trees</strong> (assessment → intervention → transport). A recall of 0.61 means the retriever surfaces most relevant protocol chunks per query, reducing hallucinated steps in the simulation's evaluator agent.
+                  </p>
+                </div>
+                <div class="insight-card warn-card">
+                  <p class="insight-metric">Precision drops with K — noise tradeoff is managed</p>
+                  <p class="insight-body">
+                    Precision@K falls from 0.44 at K=1 to 0.27 at K=5. The <strong>confidence gating layer</strong> in the retriever filters low-relevance chunks before LLM context injection, making this tradeoff acceptable — more recall without proportionally more hallucination risk.
+                  </p>
+                </div>
+                <div class="insight-card tradeoff-card">
+                  <p class="insight-metric">K=5 chosen — optimal across all four metrics</p>
+                  <p class="insight-body">
+                    K=5 is the point where MRR and Recall both cross their targets while Precision stays above 0.25. Higher K improves recall further but degrades precision and increases LLM context window load during <strong>real-time simulation turns</strong>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SignalProcessor -->
         <article class="project-card featured signal-card reveal">
           <div class="project-content">
             <p class="project-kicker">Secondary embedded project</p>
@@ -106,11 +222,7 @@
               <li>Benchmarked up to 4.93 dB speech-to-low-noise improvement on recorded WAV samples.</li>
             </ul>
             <div class="tag-row">
-              <span>Python</span>
-              <span>Arduino C++</span>
-              <span>DSP</span>
-              <span>Web Audio API</span>
-              <span>Embedded</span>
+              <span>Python</span><span>Arduino C++</span><span>DSP</span><span>Web Audio API</span><span>Embedded</span>
             </div>
             <div class="project-links">
               <a href="https://github.com/Gculb/SignalProcessor" target="_blank" rel="noreferrer">View repository</a>
@@ -123,109 +235,56 @@
               <path class="wave clean" d="M0 118 C28 92 48 93 72 113 C98 136 126 137 152 111 C180 82 208 84 236 112 C264 139 292 137 318 113 C338 95 350 96 360 104"/>
             </svg>
             <div class="signal-readouts">
-              <span>RMS 0.42</span>
-              <span>Peak 0.81</span>
-              <span>Latency 18 ms</span>
+              <span>RMS 0.42</span><span>Peak 0.81</span><span>Latency 18 ms</span>
             </div>
           </div>
         </article>
 
-        <article class="project-card featured reveal">
-          <div class="project-content">
-            <p class="project-kicker">AI simulation platform</p>
-            <h3>Alexandria Virtual Patient</h3>
-            <p>
-              AI-powered EMS simulation platform with a TypeScript backend, multilingual embeddings, ChromaDB retrieval,
-              real-time Socket.IO architecture, and an LLM-driven progress evaluator.
-            </p>
-            <ul class="impact-list">
-              <li>Designed for scenario-based medical decision practice with real-time state changes.</li>
-              <li>Connects RAG retrieval, evaluator agents, and interactive simulation flow.</li>
-            </ul>
-            <div class="tag-row">
-              <span>TypeScript</span>
-              <span>RAG</span>
-              <span>ChromaDB</span>
-              <span>Socket.IO</span>
-              <span>LLM agents</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/gculb" target="_blank" rel="noreferrer">GitHub profile</a>
-            </div>
-          </div>
-        </article>
-
+        <!-- BiochemReact -->
         <article class="project-card reveal">
           <p class="project-kicker">Live web platform</p>
           <h3>BiochemReact</h3>
-          <p>
-            Interactive biochemistry learning app with 3D molecular visualization, AlphaFold structure integration,
-            enzyme kinetics simulation, KaTeX equations, and a practice problem bank.
-          </p>
-          <div class="tag-row">
-            <span>React 19</span>
-            <span>Three.js</span>
-            <span>Chart.js</span>
-            <span>AlphaFold API</span>
-          </div>
+          <p>Interactive biochemistry learning app with 3D molecular visualization, AlphaFold structure integration, enzyme kinetics simulation, KaTeX equations, and a practice problem bank.</p>
+          <div class="tag-row"><span>React 19</span><span>Three.js</span><span>Chart.js</span><span>AlphaFold API</span></div>
           <div class="project-links">
             <a href="https://gculb.github.io/BiochemReact" target="_blank" rel="noreferrer">Live demo</a>
             <a href="https://github.com/Gculb/BiochemReact" target="_blank" rel="noreferrer">Source</a>
           </div>
         </article>
 
+        <!-- Protein Classification -->
         <article class="project-card reveal">
           <p class="project-kicker">Bioinformatics ML</p>
           <h3>Protein Classification</h3>
-          <p>
-            Supervised ML comparison across six algorithms on a protein sequence dataset, using consistent
-            scikit-learn pipelines for preprocessing, training, and model evaluation.
-          </p>
-          <div class="tag-row">
-            <span>Python</span>
-            <span>scikit-learn</span>
-            <span>Pandas</span>
-            <span>Jupyter</span>
-          </div>
+          <p>Supervised ML comparison across six algorithms on a protein sequence dataset, using consistent scikit-learn pipelines for preprocessing, training, and model evaluation.</p>
+          <div class="tag-row"><span>Python</span><span>scikit-learn</span><span>Pandas</span><span>Jupyter</span></div>
           <div class="project-links">
             <a href="https://github.com/Gculb/Protein-Sequence-Project" target="_blank" rel="noreferrer">View repository</a>
           </div>
         </article>
 
+        <!-- Regional Health Analysis -->
         <article class="project-card reveal">
           <p class="project-kicker">Public health data</p>
           <h3>Regional Health Analysis</h3>
-          <p>
-            Epidemiological analysis of regional public-health metrics using Python, statistical methods,
-            and data wrangling to surface population-level trends from structured datasets.
-          </p>
-          <div class="tag-row">
-            <span>Python</span>
-            <span>Pandas</span>
-            <span>Statistics</span>
-            <span>Public health</span>
-          </div>
+          <p>Epidemiological analysis of regional public-health metrics using Python, statistical methods, and data wrangling to surface population-level trends from structured datasets.</p>
+          <div class="tag-row"><span>Python</span><span>Pandas</span><span>Statistics</span><span>Public health</span></div>
           <div class="project-links">
             <a href="https://github.com/Gculb/Regional-Health-Analysis" target="_blank" rel="noreferrer">View repository</a>
           </div>
         </article>
 
+        <!-- Molecular Builder -->
         <article class="project-card reveal">
           <p class="project-kicker">Computational chemistry</p>
           <h3>Molecular Builder</h3>
-          <p>
-            Browser-based tool for constructing and visualizing molecular structures interactively,
-            connecting JavaScript UI work with computational chemistry concepts.
-          </p>
-          <div class="tag-row">
-            <span>JavaScript</span>
-            <span>3D visualization</span>
-            <span>Chemistry</span>
-          </div>
+          <p>Browser-based tool for constructing and visualizing molecular structures interactively, connecting JavaScript UI work with computational chemistry concepts.</p>
+          <div class="tag-row"><span>JavaScript</span><span>3D visualization</span><span>Chemistry</span></div>
           <div class="project-links">
             <a href="https://github.com/Gculb/molecular_builder" target="_blank" rel="noreferrer">View repository</a>
           </div>
         </article>
+
       </div>
     </section>
 
@@ -235,22 +294,10 @@
         <h2>Practical stack, broad enough to ship.</h2>
       </div>
       <div class="skills-grid reveal">
-        <div>
-          <h3>Application Engineering</h3>
-          <p>TypeScript, JavaScript, React, Node.js, Socket.IO, HTML, CSS, GitHub Pages</p>
-        </div>
-        <div>
-          <h3>AI Systems</h3>
-          <p>RAG pipelines, ChromaDB, embeddings, LLM agents, simulation flows, real-time evaluation</p>
-        </div>
-        <div>
-          <h3>Bioinformatics and Data</h3>
-          <p>Python, NumPy, SciPy, Pandas, scikit-learn, Jupyter, bioinformatics, statistical analysis</p>
-        </div>
-        <div>
-          <h3>Secondary Embedded DSP</h3>
-          <p>Arduino C++, signal processing, FFT analysis, filtering, audio cleanup, hardware-oriented experiments</p>
-        </div>
+        <div><h3>Application Engineering</h3><p>TypeScript, JavaScript, React, Node.js, Socket.IO, HTML, CSS, GitHub Pages</p></div>
+        <div><h3>AI Systems</h3><p>RAG pipelines, ChromaDB, embeddings, LLM agents, simulation flows, real-time evaluation</p></div>
+        <div><h3>Bioinformatics and Data</h3><p>Python, NumPy, SciPy, Pandas, scikit-learn, Jupyter, bioinformatics, statistical analysis</p></div>
+        <div><h3>Secondary Embedded DSP</h3><p>Arduino C++, signal processing, FFT analysis, filtering, audio cleanup, hardware-oriented experiments</p></div>
       </div>
     </section>
 
@@ -277,24 +324,12 @@
       <div class="contact-copy reveal">
         <p class="eyebrow">Contact</p>
         <h2>Interested in software roles where domain depth matters.</h2>
-        <p>
-          I am especially interested in engineering teams working on AI products, healthcare/life-science software,
-          data platforms, simulation tools, and embedded-adjacent systems.
-        </p>
+        <p>I am especially interested in engineering teams working on AI products, healthcare/life-science software, data platforms, simulation tools, and embedded-adjacent systems.</p>
       </div>
       <div class="contact-links reveal">
-        <a href="https://github.com/gculb" target="_blank" rel="noreferrer">
-          <span>GitHub</span>
-          github.com/gculb
-        </a>
-        <a href="https://gculb.github.io/BiochemReact" target="_blank" rel="noreferrer">
-          <span>Live Demo</span>
-          BiochemReact
-        </a>
-        <a href="https://github.com/Gculb/SignalProcessor" target="_blank" rel="noreferrer">
-          <span>Embedded DSP</span>
-          SignalProcessor
-        </a>
+        <a href="https://github.com/gculb" target="_blank" rel="noreferrer"><span>GitHub</span>github.com/gculb</a>
+        <a href="https://gculb.github.io/BiochemReact" target="_blank" rel="noreferrer"><span>Live Demo</span>BiochemReact</a>
+        <a href="https://github.com/Gculb/SignalProcessor" target="_blank" rel="noreferrer"><span>Embedded DSP</span>SignalProcessor</a>
       </div>
     </section>
   </main>
