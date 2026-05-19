@@ -183,6 +183,21 @@ h3 { margin-bottom: 0.75rem; font-size: 1.55rem; line-height: 1.1; }
   content: ""; position: absolute; inset: 0 0 auto; height: 3px;
   background: linear-gradient(90deg, var(--cyan), var(--blue), var(--rose)); opacity: 0.85;
 }
+.project-visual {
+  margin: 1.35rem 0 1.25rem;
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(7, 16, 20, 0.9);
+}
+.project-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 14px;
+}
 .project-card.featured {
   grid-column: span 2;
   display: grid;
