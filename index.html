@@ -39,16 +39,10 @@
           <a class="button primary" href="#projects">View selected work</a>
           <a class="button secondary" href="https://github.com/gculb" target="_blank" rel="noreferrer">GitHub</a>
         </div>
-        <ul class="hero-highlights">
-          <li>RAG system with 0.85 MRR on 104 medical queries</li>
-          <li>Embedded DSP pipeline delivering 4.93 dB audio improvement</li>
-          <li>Full-stack systems in TypeScript, Python, ChromaDB, and embedded C++</li>
-          <li>Applied engineering for AI, simulation, and scientific systems</li>
-        </ul>
       </div>
 
-      <aside class="hero-panel reveal" aria-label="Engineering signals">
-        <div class="panel-topline">Engineering signals</div>
+      <aside class="hero-panel reveal" aria-label="Recruiter highlights">
+        <div class="panel-topline">Recruiter scan</div>
         <div class="metric">
           <span class="metric-value">35+</span>
           <span class="metric-label">Biochemistry topics built into an interactive learning platform</span>
@@ -67,7 +61,7 @@
     <section class="section intro-section" id="about">
       <div class="section-heading reveal">
         <p class="eyebrow">About</p>
-        <h2>Systems built for science and signal.</h2>
+        <h2>Engineer with scientific range.</h2>
       </div>
       <div class="intro-grid">
         <p class="lead reveal">
@@ -75,9 +69,9 @@
           or human decision-making. I like systems that need both careful implementation and domain intuition.
         </p>
         <div class="proof-list reveal">
-          <div><span>Current engineering focus</span>AI simulations, bioinformatics ML, technical web applications, and secondary DSP tooling.</div>
-          <div><span>Technical scope</span>TypeScript/React fluency, Python analysis, data pipelines, biochemistry context, and embedded experimentation.</div>
-          <div><span>Why it matters</span>Software engineering, full-stack, ML/data, scientific computing, and embedded-adjacent roles.</div>
+          <div><span>Current focus</span>AI simulations, bioinformatics ML, technical web applications, and secondary DSP tooling.</div>
+          <div><span>What I bring</span>TypeScript/React fluency, Python analysis, data pipelines, biochemistry context, and embedded experimentation.</div>
+          <div><span>Recruiter fit</span>Software engineering, full-stack, ML/data, scientific computing, and embedded-adjacent roles.</div>
         </div>
       </div>
     </section>
@@ -85,7 +79,7 @@
     <section class="section" id="projects">
       <div class="section-heading reveal">
         <p class="eyebrow">Selected work</p>
-        <h2>Selected engineering work</h2>
+        <h2>Projects that show build depth.</h2>
       </div>
 
       <div class="project-grid">
@@ -94,9 +88,6 @@
         <article class="project-card featured reveal" style="grid-template-columns: minmax(0,1fr); display: block;">
           <p class="project-kicker">AI simulation platform</p>
           <h3>Alexandria Virtual Patient</h3>
-          <div class="project-visual">
-            <img src="alexandria-visual.png" alt="Alexandria Virtual Patient interface preview" />
-          </div>
           <p>
             AI-powered EMS simulation platform with a TypeScript backend, multilingual embeddings, ChromaDB retrieval,
             real-time Socket.IO architecture, and an LLM-driven progress evaluator. Built for scenario-based
@@ -190,7 +181,7 @@
                 <div class="insight-card pass-card">
                   <p class="insight-metric">MRR 0.81 at K=5 — first-rank quality matters most</p>
                   <p class="insight-body">
-                    In a medical simulation, the <strong>first chunk the LLM reads</strong> heavily shapes the patient response. An MRR of 0.81 means the correct EMS protocol or symptom context lands in the top 1–2 results for most queries, keeping the AI patient's behavior grounded in real clinical data.
+                    In a medical simulation, the <strong>first chunk the LLM reads</strong> heavily shapes the patient response. An MRR of 0.81 means the correct EMS protocol or symptom context lands in the top 1–2 results for most queries — keeping the AI patient's behavior grounded in real clinical data.
                   </p>
                 </div>
                 <div class="insight-card pass-card">
@@ -272,14 +263,85 @@
           </div>
         </article>
 
-        <!-- Regional Health Analysis -->
-        <article class="project-card reveal">
-          <p class="project-kicker">Public health data</p>
+        <!-- Regional Health Analysis – full width with findings -->
+        <article class="project-card featured reveal" style="grid-template-columns: minmax(0,1fr); display: block;">
+          <p class="project-kicker">Public health data · Virginia & Roanoke City (2016–2023)</p>
           <h3>Regional Health Analysis</h3>
-          <p>Epidemiological analysis of regional public-health metrics using Python, statistical methods, and data wrangling to surface population-level trends from structured datasets.</p>
-          <div class="tag-row"><span>Python</span><span>Pandas</span><span>Statistics</span><span>Public health</span></div>
+          <p>
+            Epidemiological analysis of chronic disease hospitalization data across Virginia and the Roanoke City
+            Health District, using age-adjusted rates, distribution comparisons, and longitudinal trend analysis
+            to surface structural health disparities across six major chronic conditions.
+          </p>
+          <ul class="impact-list">
+            <li>Analyzed CVD, diabetes, COPD, asthma, hypertension, and CKD hospitalization rates from the Virginia Department of Health dataset (2016–2023).</li>
+            <li>Applied age-adjusted rate normalization to enable valid cross-region comparisons.</li>
+            <li>Built an interactive dashboard to visualize trends and regional disparities over time.</li>
+          </ul>
+          <div class="tag-row">
+            <span>Python</span><span>Pandas</span><span>Statistics</span><span>Public health</span><span>VDH data</span><span>Age-adjusted rates</span>
+          </div>
           <div class="project-links">
             <a href="https://github.com/Gculb/Regional-Health-Analysis" target="_blank" rel="noreferrer">View repository</a>
+            <a href="https://claude.ai/public/artifacts/3ce0ebc4-5a9b-4c88-a9a6-ed498105814d" target="_blank" rel="noreferrer">Interactive dashboard</a>
+          </div>
+
+          <!-- Key Findings Block -->
+          <div class="rag-section">
+            <div class="rag-header">
+              <p class="rag-title">Key findings</p>
+              <p class="rag-subtitle">Virginia statewide vs. Roanoke City Health District &nbsp;·&nbsp; 2016–2023 &nbsp;·&nbsp; VDH chronic disease hospitalization data</p>
+            </div>
+
+            <!-- Stat callouts -->
+            <div class="health-stats">
+              <div class="health-stat">
+                <span class="health-stat-value">#1</span>
+                <span class="health-stat-label">CVD & hypertension — leading causes of hospitalization in both regions</span>
+              </div>
+              <div class="health-stat">
+                <span class="health-stat-value">&gt; VA avg</span>
+                <span class="health-stat-label">Roanoke City age-adjusted rates across most chronic conditions</span>
+              </div>
+              <div class="health-stat">
+                <span class="health-stat-value">2016–23</span>
+                <span class="health-stat-label">Persistent gap — no closure in disparity despite post-2019 rate decline</span>
+              </div>
+              <div class="health-stat">
+                <span class="health-stat-value">6</span>
+                <span class="health-stat-label">Chronic conditions analyzed: CVD, diabetes, COPD, asthma, hypertension, CKD</span>
+              </div>
+            </div>
+
+            <div class="rag-layout" style="margin-top: 1.25rem;">
+              <div class="rag-insights">
+                <div class="insight-card warn-card">
+                  <p class="insight-metric">Persistent regional disparity across all 8 years</p>
+                  <p class="insight-body">
+                    Roanoke City consistently showed <strong>higher age-adjusted hospitalization rates</strong> than Virginia statewide for most chronic conditions from 2016 through 2023. Despite a decline after 2019, the city never closed the gap — indicating structural rather than incidental inequity.
+                  </p>
+                </div>
+                <div class="insight-card warn-card">
+                  <p class="insight-metric">CVD and hypertension dominate both regions</p>
+                  <p class="insight-body">
+                    Cardiovascular disease and hypertension represent the <strong>highest hospitalization burden</strong> in both Virginia and Roanoke City. Diabetes and high blood cholesterol consistently rank among the top contributors — forming a cluster of interrelated metabolic conditions.
+                  </p>
+                </div>
+              </div>
+              <div class="rag-insights">
+                <div class="insight-card tradeoff-card">
+                  <p class="insight-metric">Greater variability in Roanoke signals instability</p>
+                  <p class="insight-body">
+                    Box-and-whisker distributions show <strong>wider spread in Roanoke City</strong> compared to the more stable statewide average. Higher variability suggests a less predictable hospitalization burden — consistent with populations at elevated risk for preventable admissions.
+                  </p>
+                </div>
+                <div class="insight-card pass-card">
+                  <p class="insight-metric">Age-adjusted rates enable fair regional comparison</p>
+                  <p class="insight-body">
+                    Raw hospitalization counts alone are misleading because <strong>hospitalization risk scales with age</strong>. This analysis used age-adjusted rates per 100,000 to normalize for demographic differences, making Roanoke–Virginia comparisons methodologically valid rather than superficial.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </article>
 
