@@ -80,3 +80,38 @@ document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 draw();
+
+function setRagTab(tab) {
+  const target = tab.dataset.target;
+  document.querySelectorAll(".rag-tab").forEach(el => {
+    const active = el === tab;
+    el.classList.toggle("rag-tab--active", active);
+    el.setAttribute("aria-selected", active ? "true" : "false");
+  });
+  document.querySelectorAll(".rag-panel").forEach(panel => {
+    panel.classList.toggle("rag-panel--active", panel.id === target);
+  });
+}
+
+function setFlowTopic(topic, button) {
+  const detail = {
+    load: "Load documents from EMS protocols, trauma cases, and clinical guidelines so the model is grounded in verified procedure text.",
+    chunk: "Chunk documents at section-level granularity: too small loses protocol flow, too large dilutes cosine similarity. This choice lifted MRR from ~0.64 to 0.81.",
+    embed: "Embed with multilingual-e5-large 1024d for better clinical terminology coverage and stronger cosine scores than MiniLM 768d.",
+    store: "Store chunk embeddings in ChromaDB for low-latency retrieval and query-time reranking.",
+    intent: "Detect user intent before retrieval so the system can prioritize airway, bleeding, and cardiac action chunks.",
+    search: "Perform vector search over the embedding store and return the top candidate chunks for reranking.",
+    rerank: "Combine cosine similarity, critical action boost, and section priority weights to rank the most relevant chunks for prompt construction.",
+    prompt: "Build a prompt with grounded context and citations, then send the selected content to the LLM for a safer response."
+  };
+
+  document.querySelectorAll(".flow-node").forEach(el => el.classList.toggle("active", el === button));
+  const detailEl = document.querySelector(".flow-detail");
+  if (detailEl) {
+    detailEl.innerHTML = `<strong>${button.textContent}</strong> ${detail[topic] || "Tap a step to see the design decision."}`;
+  }
+}
+
+document.querySelectorAll(".rag-tab").forEach(tab => tab.addEventListener("click", () => setRagTab(tab)));
+document.querySelectorAll(".flow-node").forEach(node => node.addEventListener("click", () => setFlowTopic(node.dataset.topic, node)));
+
