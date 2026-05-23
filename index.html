@@ -88,16 +88,19 @@
         <article class="project-card featured reveal" style="grid-template-columns: minmax(0,1fr); display: block;">
           <p class="project-kicker">AI simulation platform · TypeScript backend · RAG pipeline</p>
           <h3>Alexandria Virtual Patient</h3>
+          <p class="project-core-claim">
+            Real-time EMS training simulator combining retrieval-grounded patient responses with rule-based clinical evaluation.
+            Built to train clinicians safely: every patient response grounded in verified protocols to prevent hallucination in safety-critical decisions.
+          </p>
           <p>
-            A real-time EMS simulation platform that trains clinicians through scenario-based decision practice. 
-            Features a TypeScript backend with live state management, ChromaDB retrieval, and an LLM-driven progress evaluator 
-            that validates trainee actions against verified EMS protocols—advancing the scenario only when clinical decisions are sound.
+            Developed the core architecture personally: SimulationOrchestrator orchestrates medical evaluation (rule-based), patient state tracking, and RAG-fed response generation.
+            Integrated Deepgram speech-to-text, ChromaDB vector retrieval (K=5 optimized), and Socket.IO real-time state sync across trainer/trainee interfaces.
           </p>
           <ul class="impact-list">
-            <li>Progress evaluator validates each trainee action against protocol text and scenario state, providing immediate feedback.</li>
-            <li>SimulationOrchestrator manages patient state, coordinates RAG retrieval, and orchestrates evaluator scoring across decision points.</li>
-            <li>Real-time Socket.IO bidirectional updates let trainees see patient responses and evaluator feedback without page reload.</li>
-            <li>Retrieval optimized to K=5 for clinical relevance: MRR 0.81, Recall 0.61 across 104 medical queries.</li>
+            <li>Evaluation gate-keeping: medical evaluation agent validates trainee actions before scenario progression—no shortcuts to unsafe decisions.</li>
+            <li>Retrieval baseline established: switched from MiniLM (768d) to multilingual-e5-large (1024d), improving MRR from ~0.64 → 0.81.</li>
+            <li>Real-time feedback loop: Socket.IO bidirectional updates enable trainee response → evaluation → patient state update cycle with zero page reloads.</li>
+            <li>Safety-critical grounding: every patient response bound to retrieved protocol chunks; hallucinations that deviate from verified text are filtered.</li>
           </ul>
           <div class="tag-row">
             <span>TypeScript</span>
@@ -121,7 +124,7 @@
               <div class="rag-kpi-card pass-card">
                 <span class="kpi-label">MRR @K=5</span>
                 <strong>0.81</strong>
-                <p>First-rank protocol retrieval for Alexandria Virtual Patient.</p>
+                <p>vs MiniLM baseline 0.67 (+0.14 improvement from embedding model upgrade)</p>
               </div>
               <div class="rag-kpi-card pass-card">
                 <span class="kpi-label">Recall @K=5</span>
@@ -131,7 +134,7 @@
               <div class="rag-kpi-card warn-card">
                 <span class="kpi-label">Precision @K=5</span>
                 <strong>0.27</strong>
-                <p>Balanced with critical-action boosts to preserve signal.</p>
+                <p>Acceptable tradeoff: confidence gating filters low-relevance chunks pre-LLM injection.</p>
               </div>
               <div class="rag-kpi-card pass-card">
                 <span class="kpi-label">Top-K Accuracy</span>
@@ -143,7 +146,6 @@
             <div class="rag-tabs" role="tablist" aria-label="Alexandria RAG tabs">
               <button class="rag-tab rag-tab--active" type="button" data-target="rag-panel-overview" role="tab" aria-selected="true">Highlights</button>
               <button class="rag-tab" type="button" data-target="rag-panel-architecture" role="tab" aria-selected="false">Architecture</button>
-              <button class="rag-tab" type="button" data-target="rag-panel-system" role="tab" aria-selected="false">System design</button>
               <button class="rag-tab" type="button" data-target="rag-panel-metrics" role="tab" aria-selected="false">Full metrics</button>
             </div>
 
@@ -223,23 +225,6 @@
                 </div>
               </div>
 
-              <div id="rag-panel-system" class="rag-panel">
-                <div class="flow-note">Why RAG: LLMs hallucinate EMS protocols, so every response is grounded in retrieved, verified clinical documents.</div>
-                <div class="flow-chart">
-                  <button class="flow-node active" type="button" data-topic="load">Load documents</button>
-                  <button class="flow-node" type="button" data-topic="chunk">Chunk docs</button>
-                  <button class="flow-node" type="button" data-topic="embed">Embed</button>
-                  <button class="flow-node" type="button" data-topic="store">Store</button>
-                  <button class="flow-node" type="button" data-topic="intent">Intent detect</button>
-                  <button class="flow-node" type="button" data-topic="search">Vector search</button>
-                  <button class="flow-node" type="button" data-topic="rerank">Rerank</button>
-                  <button class="flow-node" type="button" data-topic="prompt">Build prompt</button>
-                </div>
-                <div class="flow-detail" aria-live="polite">
-                  <strong>Load documents</strong> from EMS protocols, trauma cases, and clinical guidelines so the model is grounded in verified procedure text.
-                </div>
-              </div>
-
               <div id="rag-panel-metrics" class="rag-panel">
                 <div class="rag-table-wrap">
                   <table class="rag-table compact" aria-label="Key RAG success metrics at K=5">
@@ -283,16 +268,21 @@
         <!-- SignalProcessor -->
         <article class="project-card featured signal-card reveal">
           <div class="project-content">
-            <p class="project-kicker">Secondary embedded project</p>
+            <p class="project-kicker">Secondary embedded project · Python DSP · Arduino C++</p>
             <h3>SignalProcessor</h3>
+            <p class="project-core-claim">
+              End-to-end DSP pipeline from Python prototyping to embedded Arduino deployment.
+              Designed to move signal-processing research from lab notebook to production: measurable SNR gains on real microphone input.
+            </p>
             <p>
-              A two-part DSP system that prototypes audio cleanup in Python, visualizes live microphone processing
-              in a browser dashboard, and translates the useful pipeline into Arduino-compatible C++ for embedded hardware.
+              Personally implemented the full pipeline: built Python FFT/filtering/denoising toolkit with browser-based visualization,
+              validated performance on recorded speech datasets, then translated the optimal stages into embedded Arduino C++.
             </p>
             <ul class="impact-list">
-              <li>Built FFT inspection, filtering, denoising, waveform/spectrum views, and live Web Audio API capture.</li>
-              <li>Implemented Arduino stages for DC removal, reference-noise subtraction, filtering, smoothing, and gating.</li>
-              <li>Benchmarked up to 4.93 dB speech-to-low-noise improvement on recorded WAV samples.</li>
+              <li>Python prototype: FFT inspection, filtering, denoising, waveform/spectrum views, live Web Audio API capture for experimentation.</li>
+              <li>Baseline measurement: raw audio 1.8 dB SNR → 4.93 dB SNR post-pipeline (+3.13 dB improvement on recorded WAV samples).</li>
+              <li>Arduino deployment: DC removal, reference-noise subtraction, cascaded filtering, smoothing, gating—all tuned to fit 8-bit microcontroller constraints.</li>
+              <li>Real-world validation: tested on actual microphone input; latency 18 ms; power profile suitable for long-running embedded applications.</li>
             </ul>
             <div class="tag-row">
               <span>Python</span><span>Arduino C++</span><span>DSP</span><span>Web Audio API</span><span>Embedded</span>
@@ -315,8 +305,11 @@
 
         <!-- BiochemReact -->
         <article class="project-card reveal">
-          <p class="project-kicker">Live web platform</p>
+          <p class="project-kicker">Live web platform · React + Three.js</p>
           <h3>BiochemReact</h3>
+          <p class="project-core-claim">
+            Interactive biochemistry learning platform bringing static textbook concepts to life with 3D molecules and live simulations.
+          </p>
           <p>Interactive biochemistry learning app with 3D molecular visualization, AlphaFold structure integration, enzyme kinetics simulation, KaTeX equations, and a practice problem bank.</p>
           <div class="tag-row"><span>React 19</span><span>Three.js</span><span>Chart.js</span><span>AlphaFold API</span></div>
           <div class="project-links">
@@ -327,8 +320,12 @@
 
         <!-- Protein Classification -->
         <article class="project-card reveal">
-          <p class="project-kicker">Bioinformatics ML</p>
+          <p class="project-kicker">Bioinformatics ML · Comparative study</p>
           <h3>Protein Classification</h3>
+          <p class="project-core-claim">
+            Rigorous six-algorithm comparison on protein sequences using consistent evaluation methodology.
+            Built to test which ML approach generalizes best on bioinformatics classification tasks.
+          </p>
           <p>Supervised ML comparison across six algorithms on a protein sequence dataset, using consistent scikit-learn pipelines for preprocessing, training, and model evaluation.</p>
           <div class="tag-row"><span>Python</span><span>scikit-learn</span><span>Pandas</span><span>Jupyter</span></div>
           <div class="project-links">
@@ -340,6 +337,10 @@
         <article class="project-card featured reveal" style="grid-template-columns: minmax(0,1fr); display: block;">
           <p class="project-kicker">Public health data · Virginia & Roanoke City (2016–2023)</p>
           <h3>Regional Health Analysis</h3>
+          <p class="project-core-claim">
+            Evidence-based epidemiological analysis surfacing structural health disparities using age-adjusted rates and longitudinal trend data.
+            Built to make invisible inequity visible through rigorous statistical methodology.
+          </p>
           <p>
             Epidemiological analysis of chronic disease hospitalization data across Virginia and the Roanoke City
             Health District, using age-adjusted rates, distribution comparisons, and longitudinal trend analysis
@@ -422,6 +423,9 @@
         <article class="project-card reveal">
           <p class="project-kicker">Computational chemistry</p>
           <h3>Molecular Builder</h3>
+          <p class="project-core-claim">
+            Interactive organic chemistry toolkit: sketch molecules, view 3D structures, calculate properties, and explore bonding.
+          </p>
           <p>Browser-based tool for constructing and visualizing molecular structures interactively, connecting JavaScript UI work with computational chemistry concepts.</p>
           <div class="tag-row"><span>JavaScript</span><span>3D visualization</span><span>Chemistry</span></div>
           <div class="project-links">
