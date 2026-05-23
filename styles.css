@@ -488,6 +488,88 @@ h3 { margin-bottom: 0.75rem; font-size: 1.55rem; line-height: 1.1; }
     line-height: 1.6;
   }
 
+  .arch-intro {
+    margin: 0 0 1.5rem;
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .arch-layers {
+    display: grid;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+  .arch-layer {
+    padding: 1.25rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(180, 220, 209, 0.14);
+  }
+  .arch-layer.primary {
+    background: rgba(56, 216, 191, 0.10);
+    border-color: rgba(56, 216, 191, 0.30);
+  }
+  .arch-layer-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+  .arch-desc {
+    margin: 0 0 0.85rem;
+    color: var(--amber);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .arch-items {
+    display: grid;
+    gap: 0.65rem;
+  }
+  .arch-items span {
+    display: block;
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .arch-items span::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    font-weight: 700;
+  }
+
+  .arch-flow {
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(100, 168, 255, 0.08);
+    border: 1px solid rgba(100, 168, 255, 0.25);
+  }
+  .arch-flow h4 {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--blue);
+  }
+  .arch-flow-steps {
+    margin: 0;
+    padding-left: 1.5rem;
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+  .arch-flow-steps li {
+    margin-bottom: 0.75rem;
+  }
+  .arch-flow-steps strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
 .contact-copy p:last-child { max-width: 650px; color: var(--muted); font-size: 1.08rem; }
 .contact-reach { margin-top: 1rem; color: var(--text) !important; font-weight: 500; }
 

@@ -89,13 +89,15 @@
           <p class="project-kicker">AI simulation platform · TypeScript backend · RAG pipeline</p>
           <h3>Alexandria Virtual Patient</h3>
           <p>
-            A real-time EMS simulation platform with a TypeScript backend, multilingual embeddings, ChromaDB retrieval,
-            and an LLM-driven progress evaluator. Built to ground clinical decision practice in verified protocol text.
+            A real-time EMS simulation platform that trains clinicians through scenario-based decision practice. 
+            Features a TypeScript backend with live state management, ChromaDB retrieval, and an LLM-driven progress evaluator 
+            that validates trainee actions against verified EMS protocols—advancing the scenario only when clinical decisions are sound.
           </p>
           <ul class="impact-list">
-            <li>Simulates scenario-based EMS decisions with live state tracking and evaluator feedback.</li>
-            <li>Combines retrieval, reranking, and progress evaluation to keep outputs anchored in protocol documents.</li>
-            <li>Optimized chunking and embedding strategy for clinical relevance at K=5.</li>
+            <li>Progress evaluator validates each trainee action against protocol text and scenario state, providing immediate feedback.</li>
+            <li>SimulationOrchestrator manages patient state, coordinates RAG retrieval, and orchestrates evaluator scoring across decision points.</li>
+            <li>Real-time Socket.IO bidirectional updates let trainees see patient responses and evaluator feedback without page reload.</li>
+            <li>Retrieval optimized to K=5 for clinical relevance: MRR 0.81, Recall 0.61 across 104 medical queries.</li>
           </ul>
           <div class="tag-row">
             <span>TypeScript</span>
@@ -140,6 +142,7 @@
 
             <div class="rag-tabs" role="tablist" aria-label="Alexandria RAG tabs">
               <button class="rag-tab rag-tab--active" type="button" data-target="rag-panel-overview" role="tab" aria-selected="true">Highlights</button>
+              <button class="rag-tab" type="button" data-target="rag-panel-architecture" role="tab" aria-selected="false">Architecture</button>
               <button class="rag-tab" type="button" data-target="rag-panel-system" role="tab" aria-selected="false">System design</button>
               <button class="rag-tab" type="button" data-target="rag-panel-metrics" role="tab" aria-selected="false">Full metrics</button>
             </div>
@@ -150,6 +153,73 @@
                 <div class="rag-panel-notes">
                   <span>Chunk size chosen to preserve full protocol steps, not sentence fragments.</span>
                   <span>Embedding model upgraded from MiniLM to multilingual-e5-large for stronger clinical terminology representation.</span>
+                </div>
+              </div>
+
+              <div id="rag-panel-architecture" class="rag-panel">
+                <p class="arch-intro">The system orchestrates real-time medical training through a multi-layer architecture. The <strong>Progress Evaluator</strong> validates trainee actions using scenario state and scoring rules—grounding decisions in clinical logic rather than LLM inference. The <strong>RAG system feeds LLM agents</strong> (patient responses, intent parsing) to keep AI outputs anchored in verified protocol text.</p>
+                
+                <div class="arch-layers">
+                  <div class="arch-layer">
+                    <h4 class="arch-layer-title">Frontend Layer</h4>
+                    <p class="arch-desc">Next.js + Three.js</p>
+                    <div class="arch-items">
+                      <span>Trainer's View: Scenario configuration and monitoring</span>
+                      <span>Trainee's View: Avatar UI and push-to-talk interface</span>
+                    </div>
+                  </div>
+                  
+                  <div class="arch-layer">
+                    <h4 class="arch-layer-title">API & Communication</h4>
+                    <p class="arch-desc">Socket.IO + HTTP Routes</p>
+                    <div class="arch-items">
+                      <span>Real-time bidirectional updates via Socket.IO</span>
+                      <span>RESTful HTTP endpoints for state persistence</span>
+                    </div>
+                  </div>
+                  
+                  <div class="arch-layer primary">
+                    <h4 class="arch-layer-title">Core Backend – SimulationOrchestrator</h4>
+                    <p class="arch-desc">Express.js + TypeScript</p>
+                    <div class="arch-items">
+                      <span><strong>Medical Evaluation Agent</strong>: Rule-based scorer that validates trainee actions against scenario state and clinical logic. Permits scenario advancement only when decisions meet safety criteria.</span>
+                      <span><strong>Patient State Manager</strong>: Tracks vitals, symptoms, and scenario progression; provides the ground truth for evaluation</span>
+                      <span><strong>Patient Response Agent</strong>: LLM agent (OpenAI) that uses RAG to generate clinically grounded patient responses</span>
+                      <span><strong>RAG Module</strong>: Retrieves and ranks protocol chunks for LLM agents to ground responses in verified clinical documents</span>
+                    </div>
+                  </div>
+                  
+                  <div class="arch-layer">
+                    <h4 class="arch-layer-title">External Services</h4>
+                    <p class="arch-desc">LLM & data providers</p>
+                    <div class="arch-items">
+                      <span>Deepgram: Speech-to-text conversion</span>
+                      <span>OpenAI: LLM for Patient Response Agent</span>
+                      <span>ChromaDB: Vector database for RAG retrieval fed to LLM agents</span>
+                    </div>
+                  </div>
+                  
+                  <div class="arch-layer">
+                    <h4 class="arch-layer-title">Data Layer</h4>
+                    <p class="arch-desc">Persistent storage</p>
+                    <div class="arch-items">
+                      <span>Scenarios: Scenario definitions and EMS protocol documents</span>
+                      <span>Logs: Full transcript and decision audit trail</span>
+                      <span>Patient State: Vitals, symptoms, and scenario checkpoints</span>
+                      <span>Application State: Session, user, and training progress tracking</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="arch-flow">
+                  <h4>Progress Evaluation Pipeline</h4>
+                  <ol class="arch-flow-steps">
+                    <li><strong>Trainee acts</strong> — selects an intervention via voice or UI (clinical intent inferred from input)</li>
+                    <li><strong>Medical Evaluation Agent scores</strong> — rule-based logic checks action against scenario state and safety criteria</li>
+                    <li><strong>Patient State Manager updates</strong> — vitals and scenario state progress if action meets criteria</li>
+                    <li><strong>Patient Response Agent (with RAG)</strong> — LLM generates next patient state using retrieved protocols for grounding</li>
+                    <li><strong>Real-time feedback</strong> — trainee sees result; audit trail recorded; loop continues</li>
+                  </ol>
                 </div>
               </div>
 
