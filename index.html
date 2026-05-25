@@ -30,10 +30,10 @@
     <section class="hero">
       <div class="hero-copy reveal">
         <p class="eyebrow">Systems engineer · AI · Scientific computing · Real-time applications</p>
-        <h1>Building real systems across AI and bioinformatics.</h1>
+        <h1>Building AI and scientific software where retrieval, data, and real-time systems intersect.</h1>
         <p class="hero-text">
-          I turn scientific and signal-heavy problems into practical software: full-stack learning platforms,
-          real-time simulation tools, Python ML pipelines, and embedded signal systems.
+          I turn signal-heavy, scientific, and AI problems into practical software: full-stack systems,
+          real-time simulation tools, and scientific workflows.
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#projects">View selected work</a>
@@ -89,18 +89,14 @@
           <p class="project-kicker">AI simulation platform · TypeScript backend · RAG pipeline</p>
           <h3>Alexandria Virtual Patient</h3>
           <p class="project-core-claim">
-            Real-time EMS training simulator combining retrieval-grounded patient responses with rule-based clinical evaluation.
-            Built to train EMT trainees safely: every patient response grounded in verified protocols to prevent hallucination in safety-critical decisions.
-          </p>
-          <p>
-            Developed the core architecture personally: SimulationOrchestrator orchestrates medical evaluation (rule-based), patient state tracking, and RAG-fed response generation.
-            Integrated Deepgram speech-to-text, ChromaDB vector retrieval (K=5 optimized), and Socket.IO real-time state sync across trainer/trainee interfaces.
+            Real-time EMS training simulator that grounds patient responses in retrieved protocols and rule-based evaluation.
           </p>
           <ul class="impact-list">
-            <li>Evaluation gate-keeping: medical evaluation agent validates trainee actions before scenario progression—no shortcuts to unsafe decisions.</li>
-            <li>Retrieval baseline established: switched from MiniLM (768d) to multilingual-e5-large (1024d), improving MRR from ~0.64 → 0.81.</li>
-            <li>Real-time feedback loop: Socket.IO bidirectional updates enable trainee response → evaluation → patient state update cycle with zero page reloads.</li>
-            <li>Safety-critical grounding: every patient response bound to retrieved protocol chunks; hallucinations that deviate from verified text are filtered.</li>
+            <li>Built the orchestration backend and RAG loop in TypeScript.</li>
+            <li>Used ChromaDB + multilingual-e5-large embeddings for 104 EMS queries.</li>
+            <li>Delivered scenario debriefs after completion using Socket.IO and Deepgram speech-to-text.</li>
+            <li>Reduced hallucination risk through retrieval grounding and clinical-rule validation.</li>
+            <li><strong>Design tradeoff:</strong> higher recall at K=5 accepted lower precision, with confidence gating to filter weak context.</li>
           </ul>
           <div class="tag-row">
             <span>TypeScript</span>
@@ -110,31 +106,35 @@
             <span>LLM agents</span>
             <span>multilingual-e5-large</span>
           </div>
+          <figure class="project-visual">
+            <img src="alexandria-visual.png" alt="Alexandria Virtual Patient running EMS simulation interface with patient dialog and scenario selector">
+            <figcaption>Running EMS simulation interface with patient dialog; feedback is provided to the trainer during the sceanrio.</figcaption>
+          </figure>
           <div class="project-links">
             <a href="https://github.com/gculb" target="_blank" rel="noreferrer">GitHub profile</a>
           </div>
 
           <div class="rag-section">
             <div class="rag-header">
-              <p class="rag-title">RAG evaluation results</p>
-              <p class="rag-subtitle">104 EMS queries · multilingual-e5-large embeddings · ChromaDB</p>
+              <p class="rag-title">RAG evaluation</p>
+              <p class="rag-subtitle">104 EMS queries · K=5 · retrieval-grounded responses</p>
             </div>
 
             <div class="rag-kpi-grid">
               <div class="rag-kpi-card pass-card">
                 <span class="kpi-label">MRR @K=5</span>
                 <strong>0.81</strong>
-                <p>vs MiniLM baseline 0.67 (+0.14 improvement from embedding model upgrade)</p>
+                <p>Improved from ~0.64 after upgrading from MiniLM to multilingual-e5-large.</p>
               </div>
               <div class="rag-kpi-card pass-card">
                 <span class="kpi-label">Recall @K=5</span>
                 <strong>0.61</strong>
-                <p>Multi-step EMS workflows stay covered in retrieved context.</p>
+                <p>Kept multi-step EMS workflows covered in retrieved context.</p>
               </div>
               <div class="rag-kpi-card warn-card">
                 <span class="kpi-label">Precision @K=5</span>
                 <strong>0.27</strong>
-                <p>Acceptable tradeoff: confidence gating filters low-relevance chunks pre-LLM injection.</p>
+                <p>Confidence gating filters low-relevance chunks before prompt construction.</p>
               </div>
               <div class="rag-kpi-card pass-card">
                 <span class="kpi-label">Top-K Accuracy</span>
@@ -146,120 +146,29 @@
             <div class="rag-tabs" role="tablist" aria-label="Alexandria RAG tabs">
               <button class="rag-tab rag-tab--active" type="button" data-target="rag-panel-overview" role="tab" aria-selected="true">Highlights</button>
               <button class="rag-tab" type="button" data-target="rag-panel-architecture" role="tab" aria-selected="false">Architecture</button>
-              <button class="rag-tab" type="button" data-target="rag-panel-metrics" role="tab" aria-selected="false">Full metrics</button>
             </div>
 
             <div class="rag-panels">
               <div id="rag-panel-overview" class="rag-panel rag-panel--active">
-                <p class="rag-summary">This system uses section-level chunking and 1024d multilingual embeddings to ground EMS responses in verified clinical documents, reducing hallucinations while preserving retrieval quality across 104 queries.</p>
+                <p class="rag-summary">A retrieval-grounded EMS training loop that combines protocol retrieval with a rule-based evaluation gate to reduce hallucination risk and preserve safety-critical intent.</p>
                 <div class="rag-panel-notes">
-                  <span>Chunk size chosen to preserve full protocol steps, not sentence fragments.</span>
-                  <span>Embedding model upgraded from MiniLM to multilingual-e5-large for stronger clinical terminology representation.</span>
+                  <span>Section-level chunking retained protocol flow while keeping retrieval concise.</span>
+                  <span>Multilingual-e5-large embeddings improved clinical terminology coverage and ranking quality.</span>
                 </div>
               </div>
 
               <div id="rag-panel-architecture" class="rag-panel">
-                <p class="arch-intro">The system orchestrates real-time medical training through a multi-layer architecture. The <strong>Progress Evaluator</strong> validates trainee actions using scenario state and scoring rules—grounding decisions in clinical logic rather than LLM inference. The <strong>RAG system feeds LLM agents</strong> (patient responses, intent parsing) to keep AI outputs anchored in verified protocol text.</p>
-                
-                <div class="arch-layers">
-                  <div class="arch-layer">
-                    <h4 class="arch-layer-title">Frontend Layer</h4>
-                    <p class="arch-desc">Next.js + Three.js</p>
-                    <div class="arch-items">
-                      <span>Trainer's View: Scenario configuration and monitoring</span>
-                      <span>Trainee's View: Avatar UI and push-to-talk interface</span>
-                    </div>
-                  </div>
-                  
-                  <div class="arch-layer">
-                    <h4 class="arch-layer-title">API & Communication</h4>
-                    <p class="arch-desc">Socket.IO + HTTP Routes</p>
-                    <div class="arch-items">
-                      <span>Real-time bidirectional updates via Socket.IO</span>
-                      <span>RESTful HTTP endpoints for state persistence</span>
-                    </div>
-                  </div>
-                  
-                  <div class="arch-layer primary">
-                    <h4 class="arch-layer-title">Core Backend – SimulationOrchestrator</h4>
-                    <p class="arch-desc">Express.js + TypeScript</p>
-                    <div class="arch-items">
-                      <span><strong>Medical Evaluation Agent</strong>: Rule-based scorer that validates trainee actions against scenario state and clinical logic. Permits scenario advancement only when decisions meet safety criteria.</span>
-                      <span><strong>Patient State Manager</strong>: Tracks vitals, symptoms, and scenario progression; provides the ground truth for evaluation</span>
-                      <span><strong>Patient Response Agent</strong>: LLM agent (OpenAI) that uses RAG to generate clinically grounded patient responses</span>
-                      <span><strong>RAG Module</strong>: Retrieves and ranks protocol chunks for LLM agents to ground responses in verified clinical documents</span>
-                    </div>
-                  </div>
-                  
-                  <div class="arch-layer">
-                    <h4 class="arch-layer-title">External Services</h4>
-                    <p class="arch-desc">LLM & data providers</p>
-                    <div class="arch-items">
-                      <span>Deepgram: Speech-to-text conversion</span>
-                      <span>OpenAI: LLM for Patient Response Agent</span>
-                      <span>ChromaDB: Vector database for RAG retrieval fed to LLM agents</span>
-                    </div>
-                  </div>
-                  
-                  <div class="arch-layer">
-                    <h4 class="arch-layer-title">Data Layer</h4>
-                    <p class="arch-desc">Persistent storage</p>
-                    <div class="arch-items">
-                      <span>Scenarios: Scenario definitions and EMS protocol documents</span>
-                      <span>Logs: Full transcript and decision audit trail</span>
-                      <span>Patient State: Vitals, symptoms, and scenario checkpoints</span>
-                      <span>Application State: Session, user, and training progress tracking</span>
-                    </div>
-                  </div>
-                </div>
-                
+                <p class="arch-intro">Architecture compresses to a real-time pipeline where user actions flow from browser → Socket.IO → SimulationOrchestrator → RAG retrieval → grounded response synthesis.</p>
                 <div class="arch-flow">
-                  <h4>Progress Evaluation Pipeline</h4>
+                  <h4>Core flow</h4>
                   <ol class="arch-flow-steps">
-                    <li><strong>Trainee acts</strong> — selects an intervention via voice or UI (clinical intent inferred from input)</li>
-                    <li><strong>Medical Evaluation Agent scores</strong> — rule-based logic checks action against scenario state and safety criteria</li>
-                    <li><strong>Patient State Manager updates</strong> — vitals and scenario state progress if action meets criteria</li>
-                    <li><strong>Patient Response Agent (with RAG)</strong> — LLM generates next patient state using retrieved protocols for grounding</li>
-                    <li><strong>Real-time feedback</strong> — trainee sees result; audit trail recorded; loop continues</li>
+                    <li><strong>Trainee action</strong> captured via UI or speech intent.</li>
+                    <li><strong>Rule-based evaluation</strong> validates decisions before state changes.</li>
+                    <li><strong>State update</strong> adjusts vitals, symptoms, and scenario progress.</li>
+                    <li><strong>RAG response</strong> retrieves protocol context and generates grounded patient dialogue.</li>
+                    <li><strong>Scenario debrief</strong> delivers outcome and audit trail after the simulation concludes.</li>
                   </ol>
                 </div>
-              </div>
-
-              <div id="rag-panel-metrics" class="rag-panel">
-                <div class="rag-table-wrap">
-                  <table class="rag-table compact" aria-label="Key RAG success metrics at K=5">
-                    <thead>
-                      <tr>
-                        <th>Metric</th>
-                        <th>Target</th>
-                        <th>K=5</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>MRR</td>
-                        <td>≥ 0.80</td>
-                        <td class="pass">0.81</td>
-                      </tr>
-                      <tr>
-                        <td>Recall</td>
-                        <td>≥ 0.60</td>
-                        <td class="pass">0.61</td>
-                      </tr>
-                      <tr>
-                        <td>Precision</td>
-                        <td>≥ 0.25</td>
-                        <td class="pass">0.27</td>
-                      </tr>
-                      <tr>
-                        <td>Top-K Accuracy</td>
-                        <td>≥ 0.60</td>
-                        <td class="fail">0.55</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <p class="rag-detail-text">K=5 was selected as the best operating point for EMS retrieval, where recall and first-rank quality support safe medical guidance while precision remains acceptable.</p>
               </div>
             </div>
           </div>
@@ -272,17 +181,17 @@
             <h3>SignalProcessor</h3>
             <p class="project-core-claim">
               End-to-end DSP pipeline from Python prototyping to embedded Arduino deployment.
-              Designed to move signal-processing research from lab notebook to production: measurable SNR gains on real microphone input.
+              Designed to move signal-processing research from notebook to production with measurable SNR improvements.
             </p>
             <p>
-              Personally implemented the full pipeline: built Python FFT/filtering/denoising toolkit with browser-based visualization,
-              validated performance on recorded speech datasets, then translated the optimal stages into embedded Arduino C++.
+              Designed and implemented a full DSP pipeline from Python experimentation to Arduino deployment.
             </p>
             <ul class="impact-list">
-              <li>Python prototype: FFT inspection, filtering, denoising, waveform/spectrum views, live Web Audio API capture for experimentation.</li>
-              <li>Baseline measurement: raw audio 1.8 dB SNR → 4.93 dB SNR post-pipeline (+3.13 dB improvement on recorded WAV samples).</li>
-              <li>Arduino deployment: DC removal, reference-noise subtraction, cascaded filtering, smoothing, gating—all tuned to fit 8-bit microcontroller constraints.</li>
-              <li>Real-world validation: tested on actual microphone input; latency 18 ms; power profile suitable for long-running embedded applications.</li>
+              <li>Python prototype: FFT inspection, filtering, denoising, waveform/spectrum views, and live Web Audio API capture for experimentation.</li>
+              <li>Measured on recorded speech samples: raw audio 1.8 dB SNR → 4.93 dB SNR post-pipeline.</li>
+              <li>Arduino deployment: DC removal, reference-noise subtraction, cascaded filtering, smoothing, gating—tuned for 8-bit microcontroller constraints.</li>
+              <li>Real-world validation on microphone input with 18 ms latency and an MCU-friendly power profile.</li>
+              <li><strong>Design tradeoff:</strong> simplified embedded filter stages to meet latency and memory limits while preserving noise reduction.</li>
             </ul>
             <div class="tag-row">
               <span>Python</span><span>Arduino C++</span><span>DSP</span><span>Web Audio API</span><span>Embedded</span>
@@ -471,9 +380,9 @@
     <section class="section contact-section" id="contact">
       <div class="contact-copy reveal">
         <p class="eyebrow">Contact</p>
-        <h2>Interested in software roles where domain depth matters.</h2>
-        <p>I am especially interested in engineering teams working on AI products, healthcare/life-science software, data platforms, simulation tools, and embedded-adjacent systems.</p>
-        <p class="contact-reach">Reach out via email or connect on LinkedIn — I'm actively exploring opportunities that align with my strengths.</p>
+        <h2>Seeking technical roles where deep systems and scientific software matter.</h2>
+        <p>I am interested in teams solving AI systems, scientific computing, healthcare technology, bioinformatics, and real-time simulation challenges.</p>
+        <p class="contact-reach">Reach out by email or LinkedIn for engineering roles that align with this domain depth.</p>
       </div>
       <div class="contact-links reveal">
         <a href="mailto:grantc24@vt.edu" aria-label="Send email"><span>Email</span>grantc24@vt.edu</a>
