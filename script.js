@@ -115,3 +115,20 @@ function setFlowTopic(topic, button) {
 document.querySelectorAll(".rag-tab").forEach(tab => tab.addEventListener("click", () => setRagTab(tab)));
 document.querySelectorAll(".flow-node").forEach(node => node.addEventListener("click", () => setFlowTopic(node.dataset.topic, node)));
 
+function setProjectFilter(filter) {
+  document.querySelectorAll(".filter-chip").forEach(chip => {
+    const active = chip.dataset.filter === filter;
+    chip.classList.toggle("filter-chip--active", active);
+    chip.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+
+  document.querySelectorAll(".project-card[data-roles]").forEach(card => {
+    const roles = (card.dataset.roles || "").split(/\s+/);
+    const visible = filter === "all" || roles.includes(filter);
+    card.classList.toggle("project-card--hidden", !visible);
+  });
+}
+
+document.querySelectorAll(".filter-chip").forEach(chip => {
+  chip.addEventListener("click", () => setProjectFilter(chip.dataset.filter || "all"));
+});
