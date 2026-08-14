@@ -221,30 +221,31 @@
         <!-- SignalProcessor -->
         <article class="project-card featured signal-card reveal" data-roles="secondary-embedded data-analytics">
           <div class="project-content">
-          <p class="project-kicker">Secondary systems project · Python DSP · Arduino deployment</p>
+          <p class="project-kicker">Secondary systems project · Python DSP · ML classifier · Arduino deployment</p>
             <h3><i class="fas fa-wave-square"></i> SignalProcessor</h3>
             <div class="project-role">
-              <span>Role: Secondary Embedded / DSP Developer</span>
-              <span>Stack: Python, NumPy, SciPy, Arduino C++, Web Audio API</span>
-              <span>Focus: Signal-cleaning pipeline from prototype to constrained hardware</span>
+              <span>Role: Secondary Embedded / DSP + ML Developer</span>
+              <span>Stack: Python, NumPy, SciPy, FastAPI, scikit-learn, Arduino C++, Web Audio API</span>
+              <span>Focus: Signal-cleaning and classification pipeline from prototype to constrained hardware</span>
             </div>
             <p class="project-core-claim">
-              End-to-end DSP pipeline from Python prototyping to embedded Arduino deployment.
-              Designed to move signal-processing research from notebook to production with measurable SNR improvements.
+              End-to-end DSP + ML system that combines signal analysis, supervised classification, and embedded deployment. Bridges Python prototyping with a FastAPI server, trained signal classifier, and Arduino real-time processing.
             </p>
             <p>
-              Designed and implemented a full DSP pipeline from Python experimentation to Arduino deployment.
+              Designed and implemented a full DSP pipeline from Python experimentation to Arduino deployment, with integrated ML classification for signal type identification.
             </p>
             <ul class="impact-list">
               <li>Python prototype: FFT inspection, filtering, denoising, waveform/spectrum views, and live Web Audio API capture for experimentation.</li>
-              <li>Measured on recorded speech samples: raw audio 1.8 dB SNR → 4.93 dB SNR post-pipeline.</li>
-              <li>This improvement supports clearer speech capture and more reliable downstream evaluation in noisy real-world audio.</li>
-              <li>Arduino deployment: DC removal, reference-noise subtraction, cascaded filtering, smoothing, gating—tuned for 8-bit microcontroller constraints.</li>
-              <li>Real-world validation on microphone input with 18 ms latency and an MCU-friendly power profile.</li>
-              <li><strong>Design tradeoff:</strong> simplified embedded filter stages to meet latency and memory limits while preserving noise reduction.</li>
+              <li>Built supervised ML classifier (scikit-learn) with low-data training workflow: accepts labeled examples or reviewed unlabeled WAV batches without blind training.</li>
+              <li>Developed FastAPI backend with endpoints for processing, classification, and model retraining; model persists to disk for continuous improvement.</li>
+              <li>Browser-based dashboard: live microphone capture, real-time metrics (RMS, dBFS, dominant frequency), signal classification, and labeled example review workflow.</li>
+              <li>Measured on recorded speech samples: raw audio 1.8 dB SNR → 4.93 dB SNR post-pipeline; supports clearer speech capture in noisy real-world audio.</li>
+              <li>Arduino deployment: DC removal, reference-noise subtraction, cascaded filtering, smoothing, gating—tuned for 8-bit microcontroller constraints with 18 ms latency.</li>
+              <li>CI/CD: GitHub Actions pipeline automates dependency installation, server launch, and API test validation.</li>
+              <li><strong>Design tradeoff:</strong> simplified embedded filter stages and low-data ML training to meet deployment constraints while preserving noise reduction and classification accuracy.</li>
             </ul>
             <div class="tag-row">
-              <span>Python</span><span>Arduino C++</span><span>DSP</span><span>Web Audio API</span><span>Embedded</span>
+              <span>Python</span><span>DSP</span><span>FastAPI</span><span>scikit-learn</span><span>ML Classifier</span><span>Arduino C++</span><span>Web Audio API</span><span>GitHub Actions</span><span>Embedded</span>
             </div>
             <div class="project-links">
               <a href="https://github.com/Gculb/SignalProcessor" target="_blank" rel="noreferrer">View repository</a>
