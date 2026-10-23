@@ -72,7 +72,7 @@
         <div class="proof-list reveal">
           <div><span>Primary track</span>Computational biology, biochemistry, and chemistry.</div>
           <div><span>Secondary track</span>AI engineering, scientific development, and full-stack application work.</div>
-          <div><span>Additional systems work</span>Embedded DSP and signal processing.</div>
+          <div><span>Independent exploration</span>Signal processing and audio analysis.</div>
         </div>
       </div>
     </section>
@@ -96,8 +96,8 @@
           <p>Building scientific applications, APIs, interactive visualizations, and end-to-end web tools.</p>
         </div>
         <div>
-          <h3>Additional: Embedded DSP</h3>
-          <p>Signal processing and embedded deployment as further evidence of cross-disciplinary engineering range.</p>
+          <h3>Curiosity Projects: Signal Processing</h3>
+          <p>Exploratory audio analysis, filtering, and classification alongside the primary scientific work.</p>
         </div>
       </div>
     </section>
@@ -224,24 +224,24 @@
             <h3><i class="fas fa-wave-square"></i> SignalProcessor</h3>
             <div class="project-role">
               <span>Project type: Independent exploration</span>
-              <span>Stack: Python, NumPy, SciPy, FastAPI, scikit-learn, Arduino C++, Web Audio API</span>
-              <span>Question: How much can simple DSP improve noisy speech, and what changes when it runs on a small microcontroller?</span>
+              <span>Stack: Python, NumPy, SciPy, FastAPI, scikit-learn, Web Audio API</span>
+              <span>Question: How much can simple DSP improve noisy speech, and what trade-offs appear in real-time processing?</span>
             </div>
             <p class="project-core-claim">
               A hands-on investigation of noisy audio: inspect it, try filtering and denoising methods, compare the results, and see how much of the pipeline can fit on constrained hardware.
             </p>
             <div class="signal-study-notes">
-              <div><strong>Approach</strong><p>Used FFT and waveform views to inspect recordings, then explored filtering, denoising, smoothing, and gating in Python before porting simplified stages to Arduino.</p></div>
-              <div><strong>Observation</strong><p>On the recorded speech sample used in the prototype, measured SNR moved from 1.8 dB before processing to 4.93 dB after processing. The embedded implementation measured 18 ms latency.</p></div>
+              <div><strong>Approach</strong><p>Used FFT and waveform views to inspect recordings, then explored filtering, denoising, smoothing, and gating in Python.</p></div>
+              <div><strong>Observation</strong><p>On the recorded speech sample used in the prototype, measured SNR moved from 1.8 dB before processing to 4.93 dB after processing. One real-time implementation measured 18 ms latency.</p></div>
             </div>
             <ul class="impact-list">
               <li>Built a browser-based workbench for live microphone capture, waveform/spectrum inspection, and listening to processed audio.</li>
               <li>Added a small-data classifier experiment with a review step for labeled and unlabeled WAV examples.</li>
-              <li>Kept the FastAPI processing and retraining endpoints as a way to compare the Python prototype with the browser and embedded versions.</li>
+              <li>Kept the FastAPI processing and retraining endpoints as a way to compare the Python prototype with the browser-based workbench.</li>
               <li><strong>Scope:</strong> these measurements are exploratory observations from prototype recordings, not a general benchmark of speech enhancement quality.</li>
             </ul>
             <div class="tag-row">
-              <span>Python</span><span>Signal processing</span><span>FFT</span><span>FastAPI</span><span>scikit-learn</span><span>Arduino C++</span><span>Web Audio API</span>
+              <span>Python</span><span>Signal processing</span><span>FFT</span><span>FastAPI</span><span>scikit-learn</span><span>Web Audio API</span>
             </div>
             <div class="project-links">
               <a href="https://github.com/Gculb/SignalProcessor" target="_blank" rel="noreferrer">View repository</a>
@@ -466,7 +466,7 @@
         <div><h3>Computational Biology & Chemistry</h3><p>Bioinformatics, sequence analysis, molecular visualization, computational chemistry, statistical analysis</p></div>
         <div><h3>Scientific Development</h3><p>Python, R, scientific workflows, data analysis, visualization, reproducible pipelines</p></div>
         <div><h3>AI Engineering & Full Stack</h3><p>TypeScript, React, Node.js, REST APIs, RAG, embeddings, ChromaDB, Docker</p></div>
-        <div><h3>Additional Systems</h3><p>Arduino C++, signal processing, FFT analysis, filtering, and embedded deployment</p></div>
+        <div><h3>Signal Processing</h3><p>Python audio analysis, FFT, filtering, denoising, and exploratory classification</p></div>
       </div>
     </section>
 
@@ -502,14 +502,14 @@
         <a href="https://github.com/gculb" target="_blank" rel="noreferrer" aria-label="GitHub profile"><span>GitHub</span>github.com/gculb</a>
         <a href="https://www.linkedin.com/in/grant-c-017666197/" target="_blank" rel="noreferrer" aria-label="LinkedIn profile"><span>LinkedIn</span>linkedin.com/in/grant-c-017666197/</a>
         <a href="https://gculb.github.io/BiochemReact" target="_blank" rel="noreferrer" aria-label="BiochemReact live demo"><span>Live Demo</span>BiochemReact</a>
-        <a href="https://github.com/Gculb/SignalProcessor" target="_blank" rel="noreferrer" aria-label="SignalProcessor repository"><span>Embedded DSP</span>SignalProcessor</a>
+        <a href="https://github.com/Gculb/SignalProcessor" target="_blank" rel="noreferrer" aria-label="SignalProcessor repository"><span>Signal Processing</span>SignalProcessor</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <span>Grant Culbertson</span>
-    <span>Computational biology | Biochemistry | Chemistry | Scientific software</span>
+    <span>Computational biology | Biochemistry | Chemistry | Scientific software | Signal processing</span>
   </footer>
 
   <script src="script.js"></script>
