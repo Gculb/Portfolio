@@ -286,35 +286,44 @@
         <!-- Protein Classification -->
         <article class="project-card featured seqcheck-card reveal" data-roles="bioinformatics data-analytics">
           <div class="project-content">
-            <p class="project-kicker">Bioinformatics workflow · Sequence quality checks</p>
+            <p class="project-kicker">Reproducible genomics · RNA-seq and variant benchmark workflows</p>
             <h3><i class="fas fa-dna"></i> SeqCheckFlow</h3>
             <div class="project-role">
-              <span>Focus: Sequence validation and quality review</span>
-              <span>Workflow: Input → checks → summary</span>
-              <span>Area: Bioinformatics / data quality</span>
+              <span>Role: Bioinformatics workflow developer</span>
+              <span>Stack: Python, R, Nextflow, Docker</span>
+              <span>Focus: Genomics file QC, RNA-seq analysis, and regional variant-calling benchmarks</span>
             </div>
             <p class="project-core-claim">
-              A sequence-checking workflow that makes validation steps and quality results easier to inspect.
+              Reproducible workflows for validating genomics files, analyzing an eight-library airway RNA-seq dataset, and comparing a regional HG002 variant-calling workflow with direct-tool baselines.
             </p>
-            <p>SeqCheckFlow brings sequence quality checks into a clear, reviewable pipeline, with visual summaries that help surface issues before downstream analysis.</p>
-            <div class="tag-row"><span>Sequence analysis</span><span>Quality control</span><span>Workflow</span><span>Visualization</span></div>
+            <div class="seqcheck-metrics">
+              <div><span>RNA-seq libraries</span><strong>8</strong><small>Salmon mapping: 92.3–93.9%</small></div>
+              <div><span>Differential expression</span><strong>0</strong><small>Genes at BH-adjusted p &lt; 0.05</small></div>
+              <div><span>HG002 chr21 interval</span><strong>0.9979</strong><small>F1 across 976,775 confident bases</small></div>
+            </div>
+            <p class="seqcheck-caveat">Exploratory RNA-seq reanalysis and regional benchmark results; these figures do not establish broad biological or clinical validity.</p>
+            <div class="tag-row"><span>Python</span><span>R / DESeq2</span><span>Nextflow</span><span>Docker</span><span>RNA-seq</span><span>Genomics QC</span></div>
             <div class="project-links">
               <a href="https://github.com/Gculb/SeqCheckFlow" target="_blank" rel="noreferrer">View repository</a>
+              <a href="https://github.com/Gculb/SeqCheckFlow/blob/main/docs/dashboard.html" target="_blank" rel="noreferrer">Project dashboard</a>
+              <a href="https://github.com/Gculb/SeqCheckFlow/blob/main/docs/reports/airway-multiqc.html" target="_blank" rel="noreferrer">MultiQC report</a>
             </div>
           </div>
-          <div class="seqcheck-visual" role="img" aria-label="SeqCheckFlow overview: sequence input passes through validation, quality checks, and a visual report">
-            <div class="seqcheck-visual-head"><span>SEQCHECKFLOW / QC RUN</span><span class="seqcheck-status"><i></i> COMPLETE</span></div>
-            <div class="seqcheck-flow">
-              <div class="seqcheck-stage"><span class="seqcheck-stage-icon"><i class="fas fa-file-lines"></i></span><strong>Sequence input</strong><small>FASTA / FASTQ</small></div>
-              <span class="seqcheck-arrow">›</span>
-              <div class="seqcheck-stage"><span class="seqcheck-stage-icon"><i class="fas fa-list-check"></i></span><strong>Validate</strong><small>Format · alphabet</small></div>
-              <span class="seqcheck-arrow">›</span>
-              <div class="seqcheck-stage"><span class="seqcheck-stage-icon"><i class="fas fa-chart-column"></i></span><strong>Review QC</strong><small>Flags · summary</small></div>
-            </div>
-            <div class="seqcheck-report">
-              <div class="seqcheck-report-label"><span>QUALITY OVERVIEW</span><span>PER SEQUENCE</span></div>
-              <div class="seqcheck-bars" aria-hidden="true"><i style="--bar:48%"></i><i style="--bar:68%"></i><i style="--bar:57%"></i><i style="--bar:82%"></i><i style="--bar:72%"></i><i style="--bar:91%"></i><i style="--bar:64%"></i><i style="--bar:78%"></i><i style="--bar:53%"></i><i style="--bar:86%"></i><i style="--bar:70%"></i><i style="--bar:95%"></i><i style="--bar:61%"></i><i style="--bar:77%"></i><i style="--bar:88%"></i><i style="--bar:66%"></i></div>
-              <div class="seqcheck-report-foot"><span><i></i> CHECKS PASSED</span><span>INPUT → REPORT</span></div>
+          <div class="seqcheck-results">
+            <figure class="seqcheck-heatmap">
+              <img src="seqcheckflow-results/airway-expression-heatmap.svg" alt="Heatmap of row z-scored log2 normalized expression for the 18 most variable genes across eight paired airway RNA-seq samples">
+              <figcaption>Expression patterns across four donor pairs. Rows show relative expression within each gene; this visualization is exploratory and does not indicate statistical significance.</figcaption>
+            </figure>
+            <h4 class="seqcheck-gallery-title">Workflow results</h4>
+            <div class="seqcheck-gallery">
+              <figure><img src="seqcheckflow-results/airway-pca.png" alt="Principal component analysis of the eight airway RNA-seq samples"><figcaption>Sample relationships · PCA</figcaption></figure>
+              <figure><img src="seqcheckflow-results/airway-sample-qc.png" alt="Per-sample Q30 read quality and Salmon mapping rates"><figcaption>Per-sample read quality and mapping</figcaption></figure>
+              <figure><img src="seqcheckflow-results/airway-crispld2-paired.png" alt="Paired CRISPLD2 normalized counts for untreated and treated donor samples"><figcaption>CRISPLD2 expression by donor</figcaption></figure>
+              <figure><img src="seqcheckflow-results/airway-ma.png" alt="DESeq2 MA plot of log fold change against mean expression"><figcaption>DESeq2 · MA plot</figcaption></figure>
+              <figure><img src="seqcheckflow-results/airway-volcano.png" alt="DESeq2 volcano plot of fold change and adjusted p-values"><figcaption>DESeq2 · volcano plot</figcaption></figure>
+              <figure><img src="seqcheckflow-results/hg002-accuracy-parity.svg" alt="HG002 chr21 high-coverage interval variant-calling parity and GIAB truth-set metrics"><figcaption>HG002 · wrapper parity and truth-set scores</figcaption></figure>
+              <figure><img src="seqcheckflow-results/hg002-chr21-region-accuracy.svg" alt="Variant-calling accuracy across tested HG002 chromosome 21 regions"><figcaption>HG002 · regional accuracy</figcaption></figure>
+              <figure><img src="seqcheckflow-results/hg002-runtime-memory.svg" alt="Runtime and memory measurements for the HG002 chromosome 21 benchmark"><figcaption>HG002 · runtime and memory</figcaption></figure>
             </div>
           </div>
         </article>
