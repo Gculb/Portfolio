@@ -317,6 +317,12 @@ h3 { margin-bottom: 0.75rem; font-size: 1.55rem; line-height: 1.1; }
 
 /* ─── Signal visual ─── */
 
+.signal-study-notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+.signal-study-notes > div { padding: 0.85rem; border-left: 2px solid var(--cyan); background: rgba(56,216,191,0.045); }
+.signal-study-notes strong { color: var(--amber); font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.signal-study-notes p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.85rem; line-height: 1.55; }
+@media (max-width: 760px) { .signal-study-notes { grid-template-columns: 1fr; } }
+
 .signal-visual {
   position: relative; min-height: 270px; padding: 1rem;
   border: 1px solid var(--line); border-radius: 8px; background: #071014; overflow: hidden;

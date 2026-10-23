@@ -115,7 +115,7 @@
         <button class="filter-chip" type="button" data-filter="ai-backend" aria-pressed="false">AI / Backend</button>
         <button class="filter-chip" type="button" data-filter="bioinformatics" aria-pressed="false">Bioinformatics</button>
         <button class="filter-chip" type="button" data-filter="data-analytics" aria-pressed="false">Data / Analytics</button>
-        <button class="filter-chip" type="button" data-filter="secondary-embedded" aria-pressed="false">Secondary Embedded</button>
+        <button class="filter-chip" type="button" data-filter="curiosity" aria-pressed="false">Curiosity Projects</button>
       </div>
 
       <div class="project-grid">
@@ -218,33 +218,30 @@
         </article>
 
         <!-- SignalProcessor -->
-        <article class="project-card featured signal-card reveal" data-roles="secondary-embedded secondary-track data-analytics">
+        <article class="project-card featured signal-card reveal" data-roles="curiosity data-analytics">
           <div class="project-content">
-          <p class="project-kicker">Secondary systems project · Python DSP · ML classifier · Arduino deployment</p>
+          <p class="project-kicker">Curiosity-driven scientific exploration · Signal processing</p>
             <h3><i class="fas fa-wave-square"></i> SignalProcessor</h3>
             <div class="project-role">
-              <span>Role: Secondary Embedded / DSP + ML Developer</span>
+              <span>Project type: Independent exploration</span>
               <span>Stack: Python, NumPy, SciPy, FastAPI, scikit-learn, Arduino C++, Web Audio API</span>
-              <span>Focus: Signal-cleaning and classification pipeline from prototype to constrained hardware</span>
+              <span>Question: How much can simple DSP improve noisy speech, and what changes when it runs on a small microcontroller?</span>
             </div>
             <p class="project-core-claim">
-              End-to-end DSP + ML system that combines signal analysis, supervised classification, and embedded deployment. Bridges Python prototyping with a FastAPI server, trained signal classifier, and Arduino real-time processing.
+              A hands-on investigation of noisy audio: inspect it, try filtering and denoising methods, compare the results, and see how much of the pipeline can fit on constrained hardware.
             </p>
-            <p>
-              Designed and implemented a full DSP pipeline from Python experimentation to Arduino deployment, with integrated ML classification for signal type identification.
-            </p>
+            <div class="signal-study-notes">
+              <div><strong>Approach</strong><p>Used FFT and waveform views to inspect recordings, then explored filtering, denoising, smoothing, and gating in Python before porting simplified stages to Arduino.</p></div>
+              <div><strong>Observation</strong><p>On the recorded speech sample used in the prototype, measured SNR moved from 1.8 dB before processing to 4.93 dB after processing. The embedded implementation measured 18 ms latency.</p></div>
+            </div>
             <ul class="impact-list">
-              <li>Python prototype: FFT inspection, filtering, denoising, waveform/spectrum views, and live Web Audio API capture for experimentation.</li>
-              <li>Built supervised ML classifier (scikit-learn) with low-data training workflow: accepts labeled examples or reviewed unlabeled WAV batches without blind training.</li>
-              <li>Developed FastAPI backend with endpoints for processing, classification, and model retraining; model persists to disk for continuous improvement.</li>
-              <li>Browser-based dashboard: live microphone capture, real-time metrics (RMS, dBFS, dominant frequency), signal classification, and labeled example review workflow.</li>
-              <li>Measured on recorded speech samples: raw audio 1.8 dB SNR → 4.93 dB SNR post-pipeline; supports clearer speech capture in noisy real-world audio.</li>
-              <li>Arduino deployment: DC removal, reference-noise subtraction, cascaded filtering, smoothing, gating—tuned for 8-bit microcontroller constraints with 18 ms latency.</li>
-              <li>CI/CD: GitHub Actions pipeline automates dependency installation, server launch, and API test validation.</li>
-              <li><strong>Design tradeoff:</strong> simplified embedded filter stages and low-data ML training to meet deployment constraints while preserving noise reduction and classification accuracy.</li>
+              <li>Built a browser-based workbench for live microphone capture, waveform/spectrum inspection, and listening to processed audio.</li>
+              <li>Added a small-data classifier experiment with a review step for labeled and unlabeled WAV examples.</li>
+              <li>Kept the FastAPI processing and retraining endpoints as a way to compare the Python prototype with the browser and embedded versions.</li>
+              <li><strong>Scope:</strong> these measurements are exploratory observations from prototype recordings, not a general benchmark of speech enhancement quality.</li>
             </ul>
             <div class="tag-row">
-              <span>Python</span><span>DSP</span><span>FastAPI</span><span>scikit-learn</span><span>ML Classifier</span><span>Arduino C++</span><span>Web Audio API</span><span>GitHub Actions</span><span>Embedded</span>
+              <span>Python</span><span>Signal processing</span><span>FFT</span><span>FastAPI</span><span>scikit-learn</span><span>Arduino C++</span><span>Web Audio API</span>
             </div>
             <div class="project-links">
               <a href="https://github.com/Gculb/SignalProcessor" target="_blank" rel="noreferrer">View repository</a>
@@ -257,7 +254,7 @@
               <path class="wave clean" d="M0 118 C28 92 48 93 72 113 C98 136 126 137 152 111 C180 82 208 84 236 112 C264 139 292 137 318 113 C338 95 350 96 360 104"/>
             </svg>
             <div class="signal-readouts">
-              <span>RMS 0.42</span><span>Peak 0.81</span><span>Latency 18 ms</span>
+              <span>SNR 1.8 → 4.93 dB</span><span>Latency 18 ms</span><span>8-bit MCU</span>
             </div>
           </div>
         </article>
