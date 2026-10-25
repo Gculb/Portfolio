@@ -138,10 +138,15 @@
               <div><span>Differential expression</span><strong>0</strong><small>Genes at BH-adjusted p &lt; 0.05</small></div>
               <div><span>HG002 chr21 interval</span><strong>0.9979</strong><small>F1 across 976,775 confident bases</small></div>
             </div>
+            <aside class="seqcheck-interpretation">
+              <strong>Statistical significance is not biological importance.</strong>
+              <p>Adjusted p-values summarize evidence under a model and account for multiple testing; they do not measure effect size or tell us whether a change matters biologically. That judgment also needs the size and uncertainty of the effect, biological context, replication, and follow-up validation. With four donor pairs, zero genes passing the threshold does not show that treatment has no biological effect.</p>
+            </aside>
             <p class="seqcheck-caveat">Exploratory RNA-seq reanalysis and regional benchmark results; these figures do not establish broad biological or clinical validity.</p>
             <div class="tag-row"><span>Python</span><span>R / DESeq2</span><span>Nextflow</span><span>Docker</span><span>RNA-seq</span><span>Genomics QC</span></div>
             <div class="project-links">
               <a href="https://github.com/Gculb/SeqCheckFlow" target="_blank" rel="noreferrer">View repository</a>
+              <a href="https://github.com/Gculb/SeqCheckFlow/blob/main/ARCHITECTURE.md" target="_blank" rel="noreferrer">Architecture notes</a>
               <a href="https://github.com/Gculb/SeqCheckFlow/blob/main/docs/dashboard.html" target="_blank" rel="noreferrer">Project dashboard</a>
               <a href="https://github.com/Gculb/SeqCheckFlow/blob/main/docs/reports/airway-multiqc.html" target="_blank" rel="noreferrer">MultiQC report</a>
             </div>
@@ -162,6 +167,46 @@
               <figure><img src="seqcheckflow-results/hg002-chr21-region-accuracy.svg" alt="Variant-calling accuracy across tested HG002 chromosome 21 regions"><figcaption>HG002 · regional accuracy</figcaption></figure>
               <figure><img src="seqcheckflow-results/hg002-runtime-memory.svg" alt="Runtime and memory measurements for the HG002 chromosome 21 benchmark"><figcaption>HG002 · runtime and memory</figcaption></figure>
             </div>
+            <section class="seqcheck-architecture" aria-labelledby="seqcheck-architecture-title">
+              <div class="seqcheck-architecture-heading">
+                <p class="project-kicker">System design</p>
+                <h4 id="seqcheck-architecture-title">SeqCheckFlow architecture</h4>
+                <p>The project has separate paths for file summaries, RNA-seq, and regional variant benchmarks. The single-file CLI does not automatically download, align, or call variants.</p>
+              </div>
+              <div class="seq-arch-lane">
+                <h5>01 · Single-file QC and summary</h5>
+                <div class="seq-arch-flow" aria-label="Local genomics file flows through format detection, validation, and format-specific analysis to a JSON and text report">
+                  <div class="seq-arch-node">Local FASTA / FASTQ / VCF / BAM / CRAM</div><span aria-hidden="true">→</span>
+                  <div class="seq-arch-node">Detect format<br>and validate</div><span aria-hidden="true">→</span>
+                  <div class="seq-arch-node">Format-specific<br>metrics and checks</div><span aria-hidden="true">→</span>
+                  <div class="seq-arch-node seq-arch-output">JSON + text reports</div>
+                </div>
+                <p class="seq-arch-note">NCBI download and remote BLAST are separate opt-in helpers.</p>
+              </div>
+              <div class="seq-arch-lane">
+                <h5>02 · Airway RNA-seq · Nextflow</h5>
+                <div class="seq-arch-flow" aria-label="ENA paired reads are verified, trimmed and quality checked with fastp, then quantified with Salmon using Ensembl references">
+                  <div class="seq-arch-node">ENA paired FASTQ<br>8 libraries</div><span aria-hidden="true">→</span>
+                  <div class="seq-arch-node">Verify size, MD5<br>and gzip</div><span aria-hidden="true">→</span>
+                  <div class="seq-arch-node">fastp<br>trim + read QC</div><span aria-hidden="true">→</span>
+                  <div class="seq-arch-node">Salmon<br>Ensembl 112</div>
+                </div>
+                <div class="seq-arch-branches">
+                  <div><strong>QC branch</strong><span>fastp + Salmon metrics → MultiQC report</span></div>
+                  <div><strong>Expression branch</strong><span>quant.sf → tximport → DESeq2 → tables + plots</span></div>
+                </div>
+              </div>
+              <div class="seq-arch-lane">
+                <h5>03 · HG002 regional variant benchmark</h5>
+                <div class="seq-arch-flow" aria-label="HG002 reads and reference enter staged Nextflow alignment and variant calling, then calls are evaluated against GIAB truth in confident regions">
+                  <div class="seq-arch-node">HG002 reads +<br>GRCh38 resources</div><span aria-hidden="true">→</span>
+                  <div class="seq-arch-node">Nextflow stages<br>BWA · samtools · GATK</div><span aria-hidden="true">→</span>
+                  <div class="seq-arch-node">Variant calls<br>and QC</div><span aria-hidden="true">→</span>
+                  <div class="seq-arch-node seq-arch-output">RTG vcfeval<br>GIAB truth + BED</div>
+                </div>
+                <p class="seq-arch-note">A separate benchmark command compares wrapper and direct-tool callsets on the same inputs.</p>
+              </div>
+            </section>
           </div>
         </article>
 

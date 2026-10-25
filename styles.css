@@ -301,6 +301,9 @@ h3 { margin-bottom: 0.75rem; font-size: 1.55rem; line-height: 1.1; }
 .seqcheck-metrics div { padding: 0.9rem; border: 1px solid var(--line); border-radius: 8px; background: rgba(56,216,191,0.035); }
 .seqcheck-metrics span, .seqcheck-metrics small { display: block; color: var(--muted); font-size: 0.76rem; line-height: 1.5; }
 .seqcheck-metrics strong { display: block; margin: 0.2rem 0; color: var(--cyan); font-family: var(--mono); font-size: 1.5rem; }
+.seqcheck-interpretation { margin: 0.8rem 0; padding: 1rem 1.1rem; border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0; background: rgba(255,191,105,0.06); }
+.seqcheck-interpretation strong { color: var(--amber); }
+.seqcheck-interpretation p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.86rem; line-height: 1.6; }
 .seqcheck-caveat { color: var(--muted); font-size: 0.82rem; }
 .seqcheck-results { grid-column: 1 / -1; min-width: 0; margin-top: 0.5rem; }
 .seqcheck-heatmap { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #091216; }
@@ -311,8 +314,24 @@ h3 { margin-bottom: 0.75rem; font-size: 1.55rem; line-height: 1.1; }
 .seqcheck-gallery figure { min-width: 0; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
 .seqcheck-gallery img { display: block; width: 100%; height: 190px; object-fit: contain; background: #fff; }
 .seqcheck-gallery figcaption { min-height: 2.8rem; padding: 0.65rem 0.75rem; color: #e4eeee; background: #0a1519; font-size: 0.76rem; line-height: 1.45; }
+.seqcheck-architecture { margin-top: 2rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 10px; background: rgba(4,10,13,0.48); }
+.seqcheck-architecture-heading { max-width: 760px; margin-bottom: 1.25rem; }
+.seqcheck-architecture-heading .project-kicker { margin-bottom: 0.35rem; }
+.seqcheck-architecture-heading h4 { margin: 0; color: var(--text); font-size: 1.25rem; }
+.seqcheck-architecture-heading > p:last-child { margin: 0.55rem 0 0; color: var(--muted); font-size: 0.86rem; line-height: 1.55; }
+.seq-arch-lane { padding: 1rem 0; border-top: 1px solid var(--line); }
+.seq-arch-lane h5 { margin: 0 0 0.8rem; color: var(--cyan); font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.03em; }
+.seq-arch-flow { display: flex; align-items: stretch; gap: 0.5rem; overflow-x: auto; padding: 0.2rem 0 0.6rem; }
+.seq-arch-node { display: flex; flex: 1 0 142px; min-height: 64px; align-items: center; justify-content: center; padding: 0.7rem; border: 1px solid rgba(56,216,191,0.22); border-radius: 8px; background: rgba(56,216,191,0.055); color: var(--text); font-size: 0.78rem; line-height: 1.45; text-align: center; }
+.seq-arch-node.seq-arch-output { border-color: rgba(255,191,105,0.34); background: rgba(255,191,105,0.06); }
+.seq-arch-flow > span { align-self: center; color: var(--amber); font-size: 1.1rem; }
+.seq-arch-note { margin: 0.55rem 0 0; color: var(--muted); font-size: 0.78rem; }
+.seq-arch-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; margin-top: 0.65rem; }
+.seq-arch-branches > div { display: flex; flex-wrap: wrap; gap: 0.35rem 0.75rem; padding: 0.7rem 0.8rem; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); font-size: 0.76rem; line-height: 1.5; }
+.seq-arch-branches strong { color: var(--amber); font-family: var(--mono); font-size: 0.68rem; }
 @media (max-width: 760px) { .seqcheck-metrics { grid-template-columns: 1fr; } .seqcheck-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .seqcheck-gallery { grid-template-columns: 1fr; } .seqcheck-gallery img { height: 220px; } }
+@media (max-width: 600px) { .seq-arch-branches { grid-template-columns: 1fr; } .seqcheck-architecture { padding: 0.9rem; } }
 @media (max-width: 760px) { .seqcheck-card { grid-template-columns: 1fr; } }
 
 /* ─── Signal visual ─── */
