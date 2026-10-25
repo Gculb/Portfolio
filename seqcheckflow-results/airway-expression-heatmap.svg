@@ -1,8 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 674" role="img" aria-labelledby="title desc">
 <title id="title">Airway RNA-seq expression heatmap</title><desc id="desc">Top 18 most variable genes across eight airway smooth muscle samples, using row z-scores of log2 normalized counts. Four paired donor samples, untreated and dexamethasone treated.</desc>
+<defs><linearGradient id="expression-scale"><stop offset="0%" stop-color="#2166ac"/><stop offset="50%" stop-color="#f7f7f7"/><stop offset="100%" stop-color="#b2182b"/></linearGradient></defs>
 <rect width="100%" height="100%" fill="#091216"/>
 <text x="34" y="45" fill="#eef5f4" font-family="Arial,sans-serif" font-size="22" font-weight="700">Airway RNA-seq · expression heatmap</text>
 <text x="34" y="72" fill="#9eafb2" font-family="Arial,sans-serif" font-size="13">Top 18 variable genes · log₂ normalized counts, row z-scored · GSE52778</text>
+<text x="946" y="43" fill="#cbd6d5" text-anchor="end" font-family="Arial,sans-serif" font-size="10" letter-spacing="0.7">RELATIVE EXPRESSION PER GENE</text>
+<rect x="646" y="51" width="300" height="10" rx="3" fill="url(#expression-scale)"/>
+<text x="646" y="76" fill="#9eafb2" font-family="Arial,sans-serif" font-size="10">Lower</text><text x="796" y="76" fill="#9eafb2" text-anchor="middle" font-family="Arial,sans-serif" font-size="10">Near gene average</text><text x="946" y="76" fill="#9eafb2" text-anchor="end" font-family="Arial,sans-serif" font-size="10">Higher</text>
 <text x="34" y="113" fill="#38d8bf" font-family="Arial,sans-serif" font-size="11" letter-spacing="1">UNTREATED</text>
 <text x="34" y="132" fill="#ffbf69" font-family="Arial,sans-serif" font-size="11" letter-spacing="1">DEXAMETHASONE</text>
 <text x="268.0" y="112" fill="#cbd6d5" text-anchor="middle" font-family="Arial,sans-serif" font-size="11">61311</text>
